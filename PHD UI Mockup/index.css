@@ -1,0 +1,21 @@
+li{
+  list-style-type: none;
+}
+
+.bg-gray{
+  background-color:gray;
+}
+
+.bg-lightgray{
+  background-color:lightgray;
+}
+
+.text-green {
+  color: green;
+}
+.text-red {
+  color: red;
+}
+.text-gray {
+  color: gray; 
+}
