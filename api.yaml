@@ -1,0 +1,74 @@
+swagger: "2.0"
+info:
+  description: "for PHD"
+  version: "1.0.0"
+  title: "PHD"
+  termsOfService: ""
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+host: "127.0.0.1"
+basePath: "/PHD"
+tags:
+- name: "member"
+  description: "user"
+
+- name: "step"
+  description: "Step"
+
+schemes:
+- "https"
+- "http"
+paths:
+  /members:
+    get:
+      tags: 
+        - "member"
+      summary: ""
+      description: "" 
+      responses:
+        200:
+          description: OK
+  
+
+
+  
+definitions:
+  step:
+    type: "object"
+    properties:
+      sid:
+        type: string
+      group:
+        type: string
+      
+      title:
+        type: string
+      deadline:
+        type: string
+      log:
+        type: string
+      status:
+        type: boolean
+  member:
+    type: "object"
+    properties:
+      mid:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      group:
+        type: string
+      permission:
+        type: string
+      steps:
+        type: array
+        items:
+          $ref: '#/definitions/step'
+      alert:
+        type: boolean
+
+  
