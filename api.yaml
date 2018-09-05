@@ -21,7 +21,7 @@ schemes:
 - "https"
 - "http"
 paths:
-  /members:
+  /groupmembers:
     get:
       tags: 
         - "member"
@@ -30,6 +30,28 @@ paths:
       responses:
         200:
           description: OK
+          schema:
+            properties:
+              members:
+                type: array
+                items:
+                  $ref: '#/definitions/member'
+  /members/{mid}:
+    get:
+      tags: 
+        - "member"
+      summary: ""
+      description: "" 
+      parameters: 
+      - name: mid
+        type: string
+        in: path
+        required: true
+      responses:
+        200:
+          description: OK
+    
+    
   
 
 
@@ -56,6 +78,10 @@ definitions:
     properties:
       mid:
         type: string
+      account:
+        type: string
+      pws:
+        type: string
       name:
         type: string
       description:
@@ -69,6 +95,8 @@ definitions:
         items:
           $ref: '#/definitions/step'
       alert:
+        type: boolean
+      hidden:
         type: boolean
 
   
