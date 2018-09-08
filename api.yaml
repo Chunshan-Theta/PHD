@@ -5,7 +5,8 @@ info:
   title: "PHD"
   termsOfService: ""
   contact:
-    email: "apiteam@swagger.io"
+    email: "gavin19950511@gmail.com"
+    name: "Developer Gavin"
   license:
     name: "Apache 2.0"
 host: "127.0.0.1"
@@ -21,12 +22,18 @@ schemes:
 - "https"
 - "http"
 paths:
-  /groupmembers:
+  /submembers:
     get:
       tags: 
-        - "member"
+        - "business"
       summary: ""
       description: "" 
+      parameters: 
+      - name: mid
+        description: "host's mid"
+        type: string
+        in: path
+        required: true
       responses:
         200:
           description: OK
@@ -36,28 +43,168 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/member'
-  /members/{mid}:
+                  
+  /submemberswithexcel:
+    get:
+      tags: 
+        - "business"
+      summary: ""
+      description: "" 
+      responses:
+        200:
+          description: OK
+      deprecated: true
+          
+  /newsubmember:
+    post:
+      tags: 
+        - "business"
+      summary: ""
+      description: "" 
+      responses:
+        200:
+          description: OK
+
+    
+  /member:
     get:
       tags: 
         - "member"
-      summary: ""
+      summary: "return the members who meet to the filter."
+      parameters:
+      - in: "body"
+        name: "filter"
+        description: "filter"
+        required: true
+        schema:
+          $ref: '#/definitions/memberfilter'
       description: "" 
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/member'
+    
+    post:
+      tags: 
+         - "member"
+      summary: "new a member."
+      description: ""
       parameters: 
-      - name: mid
+      - in: "body"
+        name: "member"
+        description: ""
+        required: true
+        schema:
+          $ref: '#/definitions/member'
+      responses:
+        200:
+          description: OK
+    put:
+      tags: 
+         - "member"
+      summary: "update the member's data."
+      description: ""
+      parameters: 
+      - in: "body"
+        name: "member"
+        description: ""
+        required: true
+        schema:
+          $ref: '#/definitions/member'
+      responses:
+        200:
+          description: OK  
+    delete:
+      tags: 
+        - "member"
+      summary: "delete a member."
+      description: ""
+      parameters: 
+      - in: "query"
+        name: "mid"
         type: string
-        in: path
         required: true
       responses:
         200:
           description: OK
+          
+  /step:
+    get:
+      tags: 
+        - "step"
+      summary: "return the members who meet to the filter."
+      parameters:
+      - in: "body"
+        name: "filter"
+        description: "filter"
+        required: true
+        schema:
+          $ref: '#/definitions/stepfilter'
+      description: "" 
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/step'
     
-    
+    post:
+      tags: 
+         - "step"
+      summary: "new a step to the submember."
+      description: ""
+      parameters: 
+      - in: "body"
+        name: "member"
+        description: ""
+        required: true
+        schema:
+          $ref: '#/definitions/step'
+      responses:
+        200:
+          description: OK
+    put:
+      tags: 
+         - "step"
+      summary: "update the member's a step."
+      description: ""
+      parameters: 
+      - in: "body"
+        name: "step"
+        description: ""
+        required: true
+        schema:
+          $ref: '#/definitions/step'
+      responses:
+        200:
+          description: OK  
+    delete:
+      tags: 
+        - "step"
+      summary: "delete a step."
+      description: ""
+      parameters: 
+      - in: "query"
+        name: "sid"
+        type: string
+        required: true
+      responses:
+        200:
+          description: OK    
   
 
 
   
 definitions:
   step:
+    required: 
+      - "sid"
+      - "group"
+      - "title"
     type: "object"
     properties:
       sid:
@@ -75,6 +222,13 @@ definitions:
         type: boolean
   member:
     type: "object"
+    required: 
+      - "mid"
+      - "account"
+      - "pws"
+      - "name"
+      - "group"
+      - "premission"
     properties:
       mid:
         type: string
@@ -98,5 +252,54 @@ definitions:
         type: boolean
       hidden:
         type: boolean
-
+  memberfilter:
+    type: "object"
+    
+    properties:
+      mid:
+        type: array
+        items:
+          type: string
+      name:
+        type: array
+        items:
+          type: string
+      group:
+        type: array
+        items:
+          type: string
+      permission:
+        type: array
+        items:
+          type: string
+      alert:
+        type: array
+        items:
+          type: string
+      hidden:
+        type: array
+        items:
+          type: string
+  stepfilter:
+    type: "object"
+    properties:
+      sid:
+        type: array
+        items:
+          type: string
+      group:
+        type: array
+        items:
+          type: string
+      title:
+        type: array
+        items:
+          type: string
+      deadline:
+        description: "before the time"
+        type: string
+      status:
+        type: array
+        items:
+          type: string
   
