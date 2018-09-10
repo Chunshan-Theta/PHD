@@ -38,26 +38,26 @@
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
 </datatypes><table x="309" y="166" name="member">
-<row name="mid" null="1" autoincrement="1">
+<row name="mid" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <row name="account" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(20)</datatype>
 </row>
 <row name="pws" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(20)</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(20)</datatype>
 </row>
 <row name="description" null="0" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 </row>
 <row name="group" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(20)</datatype>
 </row>
 <row name="permission" null="0" autoincrement="0">
-<datatype>VARBINARY</datatype>
+<datatype>VARBINARY(10)</datatype>
 </row>
 <row name="hidden" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -66,22 +66,22 @@
 <part>mid</part>
 </key>
 </table>
-<table x="504" y="169" name="step">
-<row name="sid" null="1" autoincrement="1">
+<table x="550" y="189" name="step">
+<row name="sid" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <row name="group" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(20)</datatype>
 </row>
 <row name="title" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(20)</datatype>
 </row>
 <row name="deadline" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 </row>
-<row name="status" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
+<row name="status" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
 <row name="submid" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="member" row="mid" />
@@ -89,6 +89,9 @@
 <row name="adminmid" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="member" row="mid" />
+</row>
+<row name="description" null="0" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>sid</part>
