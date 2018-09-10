@@ -17,5 +17,9 @@ li{
   color: red;
 }
 .text-gray {
-  color: gray; 
+  color: gray;
 }
+
+.likebutton:active {
+  background-color: lightgray;
+ }

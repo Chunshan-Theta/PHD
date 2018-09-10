@@ -24,11 +24,11 @@ schemes:
 paths:
   /submembers:
     get:
-      tags: 
+      tags:
         - "business"
       summary: ""
-      description: "" 
-      parameters: 
+      description: ""
+      parameters:
       - name: mid
         description: "host's mid"
         type: string
@@ -43,32 +43,32 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/member'
-                  
+
   /submemberswithexcel:
     get:
-      tags: 
+      tags:
         - "business"
       summary: ""
-      description: "" 
+      description: ""
       responses:
         200:
           description: OK
       deprecated: true
-          
+
   /newsubmember:
     post:
-      tags: 
+      tags:
         - "business"
       summary: ""
-      description: "" 
+      description: ""
       responses:
         200:
           description: OK
 
-    
+
   /member:
     get:
-      tags: 
+      tags:
         - "member"
       summary: "return the members who meet to the filter."
       parameters:
@@ -78,7 +78,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/memberfilter'
-      description: "" 
+      description: ""
       responses:
         200:
           description: OK
@@ -86,13 +86,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/member'
-    
+
     post:
-      tags: 
+      tags:
          - "member"
       summary: "new a member."
       description: ""
-      parameters: 
+      parameters:
       - in: "body"
         name: "member"
         description: ""
@@ -103,11 +103,11 @@ paths:
         200:
           description: OK
     put:
-      tags: 
+      tags:
          - "member"
       summary: "update the member's data."
       description: ""
-      parameters: 
+      parameters:
       - in: "body"
         name: "member"
         description: ""
@@ -116,13 +116,13 @@ paths:
           $ref: '#/definitions/member'
       responses:
         200:
-          description: OK  
+          description: OK
     delete:
-      tags: 
+      tags:
         - "member"
       summary: "delete a member."
       description: ""
-      parameters: 
+      parameters:
       - in: "query"
         name: "mid"
         type: string
@@ -130,10 +130,10 @@ paths:
       responses:
         200:
           description: OK
-          
+
   /step:
     get:
-      tags: 
+      tags:
         - "step"
       summary: "return the members who meet to the filter."
       parameters:
@@ -143,7 +143,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/stepfilter'
-      description: "" 
+      description: ""
       responses:
         200:
           description: OK
@@ -151,13 +151,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/step'
-    
+
     post:
-      tags: 
+      tags:
          - "step"
       summary: "new a step to the submember."
       description: ""
-      parameters: 
+      parameters:
       - in: "body"
         name: "member"
         description: ""
@@ -168,11 +168,11 @@ paths:
         200:
           description: OK
     put:
-      tags: 
+      tags:
          - "step"
       summary: "update the member's a step."
       description: ""
-      parameters: 
+      parameters:
       - in: "body"
         name: "step"
         description: ""
@@ -181,27 +181,27 @@ paths:
           $ref: '#/definitions/step'
       responses:
         200:
-          description: OK  
+          description: OK
     delete:
-      tags: 
+      tags:
         - "step"
       summary: "delete a step."
       description: ""
-      parameters: 
+      parameters:
       - in: "query"
         name: "sid"
         type: string
         required: true
       responses:
         200:
-          description: OK    
-  
+          description: OK
 
 
-  
+
+
 definitions:
   step:
-    required: 
+    required:
       - "sid"
       - "group"
       - "title"
@@ -211,7 +211,7 @@ definitions:
         type: string
       group:
         type: string
-      
+
       title:
         type: string
       deadline:
@@ -220,9 +220,11 @@ definitions:
         type: string
       status:
         type: boolean
+      description:
+        type: string
   member:
     type: "object"
-    required: 
+    required:
       - "mid"
       - "account"
       - "pws"
@@ -254,7 +256,7 @@ definitions:
         type: boolean
   memberfilter:
     type: "object"
-    
+
     properties:
       mid:
         type: array
@@ -302,4 +304,3 @@ definitions:
         type: array
         items:
           type: string
-  
