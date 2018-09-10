@@ -93,6 +93,9 @@
 <row name="description" null="0" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 </row>
+<row name="log" null="1" autoincrement="0">
+<datatype>VARCHAR(200)</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>sid</part>
 </key>
