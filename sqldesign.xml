@@ -57,7 +57,7 @@
 <datatype>VARCHAR(20)</datatype>
 </row>
 <row name="permission" null="0" autoincrement="0">
-<datatype>VARBINARY(10)</datatype>
+<datatype>VARCHAR(10)</datatype>
 </row>
 <row name="hidden" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -77,7 +77,7 @@
 <datatype>VARCHAR(20)</datatype>
 </row>
 <row name="deadline" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATE</datatype>
 </row>
 <row name="status" null="1" autoincrement="0">
 <datatype>TINYINT</datatype>
