@@ -9,7 +9,7 @@ info:
     name: "Developer Gavin"
   license:
     name: "Apache 2.0"
-host: "127.0.0.1"
+host: "140.115.126.216:8080"
 basePath: "/PHD"
 tags:
 - name: "member"
@@ -19,7 +19,7 @@ tags:
   description: "Step"
 
 schemes:
-- "https"
+#- "https"
 - "http"
 paths:
   /submembers:
@@ -28,11 +28,13 @@ paths:
         - "business"
       summary: ""
       description: ""
+      produces:
+        - "application/json"
       parameters:
       - name: mid
         description: "host's mid"
         type: string
-        in: path
+        in: query
         required: true
       responses:
         200:
@@ -72,12 +74,33 @@ paths:
         - "member"
       summary: "return the members who meet to the filter."
       parameters:
-      - in: "body"
-        name: "filter"
-        description: "filter"
-        required: true
-        schema:
-          $ref: '#/definitions/memberfilter'
+        - in: query
+          name: "mid"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"0001"}'
+        - in: query
+          name: "name"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"Tony"}'
+        - in: query
+          name: "group"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"NCU_NLT"}'
+        - in: query
+          name: "permission"
+          type: "string"
+          required: false
+          enum:
+            - "user"
+            - "admin"
+
+
       description: ""
       responses:
         200:
@@ -136,14 +159,38 @@ paths:
       tags:
         - "step"
       summary: "return the members who meet to the filter."
-      parameters:
-      - in: "body"
-        name: "filter"
-        description: "filter"
-        required: true
-        schema:
-          $ref: '#/definitions/stepfilter'
       description: ""
+      parameters:
+        - in: query
+          name: "sid"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"23"}'
+        - in: query
+          name: "title"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"Tony"}'
+        - in: query
+          name: "group"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"NCU_NLT"}'
+        - in: query
+          name: "submid"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"23"}'
+        - in: query
+          name: "adminmid"
+          type: "string"
+          required: false
+          description: "allowed f : =,>,<,LIKE"
+          default: '{"f":"=","value":"23"}'
       responses:
         200:
           description: OK
@@ -254,53 +301,3 @@ definitions:
         type: boolean
       hidden:
         type: boolean
-  memberfilter:
-    type: "object"
-
-    properties:
-      mid:
-        type: array
-        items:
-          type: string
-      name:
-        type: array
-        items:
-          type: string
-      group:
-        type: array
-        items:
-          type: string
-      permission:
-        type: array
-        items:
-          type: string
-      alert:
-        type: array
-        items:
-          type: string
-      hidden:
-        type: array
-        items:
-          type: string
-  stepfilter:
-    type: "object"
-    properties:
-      sid:
-        type: array
-        items:
-          type: string
-      group:
-        type: array
-        items:
-          type: string
-      title:
-        type: array
-        items:
-          type: string
-      deadline:
-        description: "before the time"
-        type: string
-      status:
-        type: array
-        items:
-          type: string

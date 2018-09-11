@@ -1,0 +1,395 @@
+---
+swagger: "2.0"
+info:
+  description: "for PHD"
+  version: "1.0.0"
+  title: "PHD"
+  termsOfService: ""
+  contact:
+    name: "Developer Gavin"
+    email: "gavin19950511@gmail.com"
+  license:
+    name: "Apache 2.0"
+host: "140.115.126.216:8080"
+basePath: "/PHD"
+tags:
+- name: "member"
+  description: "user"
+- name: "step"
+  description: "Step"
+schemes:
+- "http"
+paths:
+  /submembers:
+    get:
+      tags:
+      - "business"
+      summary: ""
+      description: ""
+      operationId: "submembersGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mid"
+        in: "query"
+        description: "host's mid"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "Business"
+  /submemberswithexcel:
+    get:
+      tags:
+      - "business"
+      summary: ""
+      description: ""
+      operationId: "submemberswithexcelGET"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+      deprecated: true
+      x-swagger-router-controller: "Business"
+  /newsubmember:
+    post:
+      tags:
+      - "business"
+      summary: ""
+      description: ""
+      operationId: "newsubmemberPOST"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Business"
+  /member:
+    get:
+      tags:
+      - "member"
+      summary: "return the members who meet to the filter."
+      description: ""
+      operationId: "memberGET"
+      parameters:
+      - name: "mid"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"0001\"}"
+      - name: "name"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"Tony\"}"
+      - name: "group"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"NCU_NLT\"}"
+      - name: "permission"
+        in: "query"
+        required: false
+        type: "string"
+        enum:
+        - "user"
+        - "admin"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/member"
+      x-swagger-router-controller: "Member"
+    post:
+      tags:
+      - "member"
+      summary: "new a member."
+      description: ""
+      operationId: "memberPOST"
+      parameters:
+      - in: "body"
+        name: "member"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/member"
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Member"
+    put:
+      tags:
+      - "member"
+      summary: "update the member's data."
+      description: ""
+      operationId: "memberPUT"
+      parameters:
+      - in: "body"
+        name: "member"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/member"
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Member"
+    delete:
+      tags:
+      - "member"
+      summary: "delete a member."
+      description: ""
+      operationId: "memberDELETE"
+      parameters:
+      - name: "mid"
+        in: "query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Member"
+  /step:
+    get:
+      tags:
+      - "step"
+      summary: "return the members who meet to the filter."
+      description: ""
+      operationId: "stepGET"
+      parameters:
+      - name: "sid"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"23\"}"
+      - name: "title"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"Tony\"}"
+      - name: "group"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"NCU_NLT\"}"
+      - name: "submid"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"23\"}"
+      - name: "adminmid"
+        in: "query"
+        description: "allowed f : =,>,<,LIKE"
+        required: false
+        type: "string"
+        default: "{\"f\":\"=\",\"value\":\"23\"}"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/step"
+      x-swagger-router-controller: "Step"
+    post:
+      tags:
+      - "step"
+      summary: "new a step to the submember."
+      description: ""
+      operationId: "stepPOST"
+      parameters:
+      - in: "body"
+        name: "member"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/step"
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Step"
+    put:
+      tags:
+      - "step"
+      summary: "update the member's a step."
+      description: ""
+      operationId: "stepPUT"
+      parameters:
+      - in: "body"
+        name: "step"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/step"
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Step"
+    delete:
+      tags:
+      - "step"
+      summary: "delete a step."
+      description: ""
+      operationId: "stepDELETE"
+      parameters:
+      - name: "sid"
+        in: "query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "Step"
+definitions:
+  step:
+    type: "object"
+    required:
+    - "group"
+    - "sid"
+    - "title"
+    properties:
+      sid:
+        type: "string"
+      group:
+        type: "string"
+      title:
+        type: "string"
+      deadline:
+        type: "string"
+      log:
+        type: "string"
+      status:
+        type: "boolean"
+      description:
+        type: "string"
+    example:
+      log: "log"
+      description: "description"
+      title: "title"
+      deadline: "deadline"
+      sid: "sid"
+      group: "group"
+      status: true
+  member:
+    type: "object"
+    required:
+    - "account"
+    - "group"
+    - "mid"
+    - "name"
+    - "pws"
+    properties:
+      mid:
+        type: "string"
+      account:
+        type: "string"
+      pws:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      group:
+        type: "string"
+      permission:
+        type: "string"
+      steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/step"
+      alert:
+        type: "boolean"
+      hidden:
+        type: "boolean"
+    example:
+      hidden: true
+      alert: true
+      name: "name"
+      mid: "mid"
+      description: "description"
+      permission: "permission"
+      pws: "pws"
+      steps:
+      - log: "log"
+        description: "description"
+        title: "title"
+        deadline: "deadline"
+        sid: "sid"
+        group: "group"
+        status: true
+      - log: "log"
+        description: "description"
+        title: "title"
+        deadline: "deadline"
+        sid: "sid"
+        group: "group"
+        status: true
+      account: "account"
+      group: "group"
+  inline_response_200:
+    properties:
+      members:
+        type: "array"
+        items:
+          $ref: "#/definitions/member"
+    example:
+      members:
+      - hidden: true
+        alert: true
+        name: "name"
+        mid: "mid"
+        description: "description"
+        permission: "permission"
+        pws: "pws"
+        steps:
+        - log: "log"
+          description: "description"
+          title: "title"
+          deadline: "deadline"
+          sid: "sid"
+          group: "group"
+          status: true
+        - log: "log"
+          description: "description"
+          title: "title"
+          deadline: "deadline"
+          sid: "sid"
+          group: "group"
+          status: true
+        account: "account"
+        group: "group"
+      - hidden: true
+        alert: true
+        name: "name"
+        mid: "mid"
+        description: "description"
+        permission: "permission"
+        pws: "pws"
+        steps:
+        - log: "log"
+          description: "description"
+          title: "title"
+          deadline: "deadline"
+          sid: "sid"
+          group: "group"
+          status: true
+        - log: "log"
+          description: "description"
+          title: "title"
+          deadline: "deadline"
+          sid: "sid"
+          group: "group"
+          status: true
+        account: "account"
+        group: "group"
