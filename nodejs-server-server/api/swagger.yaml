@@ -10,7 +10,7 @@ info:
     email: "gavin19950511@gmail.com"
   license:
     name: "Apache 2.0"
-host: "140.115.126.216:8080"
+host: "localhost:8080"
 basePath: "/PHD"
 tags:
 - name: "member"
@@ -76,22 +76,19 @@ paths:
       parameters:
       - name: "mid"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"0001\"}"
+        description: "1,2,3,4,5"
       - name: "name"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"Tony\"}"
+        description: "Tony,Theta,Tib"
       - name: "group"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"NCU_NLT\"}"
+        description: "NCU_NLT1,NCU_NLT2,NCU_NLT3,NCU_NLT4"
       - name: "permission"
         in: "query"
         required: false

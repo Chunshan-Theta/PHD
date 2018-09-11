@@ -74,31 +74,28 @@ paths:
         - "member"
       summary: "return the members who meet to the filter."
       parameters:
-        - in: query
-          name: "mid"
-          type: "string"
-          required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"0001"}'
-        - in: query
-          name: "name"
-          type: "string"
-          required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"Tony"}'
-        - in: query
-          name: "group"
-          type: "string"
-          required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"NCU_NLT"}'
-        - in: query
-          name: "permission"
-          type: "string"
-          required: false
-          enum:
-            - "user"
-            - "admin"
+      - name: "mid"
+        in: "query"
+        required: false
+        type: "string"
+        description: "1,2,3,4,5"
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+        description: "Tony,Theta,Tib"
+      - name: "group"
+        in: "query"
+        required: false
+        type: "string"
+        description: "NCU_NLT1,NCU_NLT2,NCU_NLT3,NCU_NLT4"
+      - name: "permission"
+        in: "query"
+        required: false
+        type: "string"
+        enum:
+        - "user"
+        - "admin"
 
 
       description: ""
