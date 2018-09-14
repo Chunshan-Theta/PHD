@@ -135,6 +135,8 @@ function newstep(sid, group, title, deadline, status, submid, adminmid, descript
 
 
 /*-----------------*/
+
+//UPDATE `step` SET `submid` = '1' WHERE `step`.`sid` = 11;
 module.exports.stepPUT = function stepPUT (req, res, next) {
   var step = req.swagger.params['step'].value;
   Step.stepPUT(step)
