@@ -158,36 +158,31 @@ paths:
       summary: "return the members who meet to the filter."
       description: ""
       parameters:
-        - in: query
-          name: "sid"
-          type: "string"
+        - name: "sid"
+          in: "query"
+          description: "1,2,3,4"
           required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"23"}'
-        - in: query
-          name: "title"
           type: "string"
+        - name: "title"
+          in: "query"
+          description: "Tony,Tom,"
           required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"Tony"}'
-        - in: query
-          name: "group"
           type: "string"
+        - name: "group"
+          in: "query"
+          description: "NCU_NLT1,NCU_NLT2"
           required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"NCU_NLT"}'
-        - in: query
-          name: "submid"
           type: "string"
+        - name: "submid"
+          in: "query"
+          description: "1,2,3,4"
           required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"23"}'
-        - in: query
-          name: "adminmid"
           type: "string"
+        - name: "adminmid"
+          in: "query"
+          description: "1,2,3,4"
           required: false
-          description: "allowed f : =,>,<,LIKE"
-          default: '{"f":"=","value":"23"}'
+          type: "string"
       responses:
         200:
           description: OK

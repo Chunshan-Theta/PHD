@@ -16,6 +16,9 @@ module.exports.memberDELETE = function memberDELETE (req, res, next) {
     });
 };
 
+
+/* ---- memberGET ----*/
+
 module.exports.memberGET = function memberGET (req, res, next) {
   var mid = req.swagger.params['mid'].value != null ? req.swagger.params['mid'].value.split(","):[];
   var name = req.swagger.params['name'].value != null ? req.swagger.params['name'].value.split(","):[];
@@ -93,15 +96,15 @@ function catchmembers(mid,name,group,permission,nextstep){
       nextstep(memberlist);
   });
 }
-
-
-
-
-
-
-
-
 /* --------*/
+
+
+
+
+
+
+
+/* ----   memberPOST ----*/
 module.exports.memberPOST = function memberPOST (req, res, next) {
   var member = req.swagger.params['member'].value;
   Member.memberPOST(member)
@@ -113,6 +116,18 @@ module.exports.memberPOST = function memberPOST (req, res, next) {
     });
 };
 
+
+/* --------*/
+
+
+
+
+
+
+
+
+
+/* --------*/
 module.exports.memberPUT = function memberPUT (req, res, next) {
   var member = req.swagger.params['member'].value;
   Member.memberPUT(member)

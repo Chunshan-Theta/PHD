@@ -163,34 +163,29 @@ paths:
       parameters:
       - name: "sid"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
+        description: "1,2,3,4"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"23\"}"
       - name: "title"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
+        description: "Tony,Tom,"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"Tony\"}"
       - name: "group"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
+        description: "NCU_NLT1,NCU_NLT2"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"NCU_NLT\"}"
       - name: "submid"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
+        description: "1,2,3,4"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"23\"}"
       - name: "adminmid"
         in: "query"
-        description: "allowed f : =,>,<,LIKE"
+        description: "1,2,3,4"
         required: false
         type: "string"
-        default: "{\"f\":\"=\",\"value\":\"23\"}"
       responses:
         200:
           description: "OK"
