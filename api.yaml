@@ -261,6 +261,10 @@ definitions:
         type: boolean
       description:
         type: string
+      submid:
+        type: string
+      adminmid:
+        type: string
   member:
     type: "object"
     required:

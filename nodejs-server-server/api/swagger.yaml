@@ -262,17 +262,23 @@ definitions:
       log:
         type: "string"
       status:
-        type: "boolean"
+        type: "integer"
       description:
         type: "string"
+      submid:
+        type: "string"
+      adminmid:
+        type: "string"
     example:
-      log: "log"
+      log: "no log"
       description: "description"
       title: "title"
-      deadline: "deadline"
-      sid: "sid"
+      deadline: "1995-05-11"
+      sid: "NULL"
       group: "group"
-      status: true
+      status: -1
+      submid: "0"
+      adminmid: "0"
   member:
     type: "object"
     required:

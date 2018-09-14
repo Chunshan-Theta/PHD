@@ -26,12 +26,12 @@ module.exports.stepGET = function stepGET (req, res, next) {
     .then(function (response) {
       if(sid.length+title.length+group.length+submid.length+adminmid.length == 0){
         catchallsteps(function(steplist){
-          utils.writeJson(res, steplist);}
+          utils.writeJson(res, steplist);
         });
       }
       else {
         catchsteps(sid,title,group,submid,adminmid,function(steplist){
-          utils.writeJson(res, steplist);}
+          utils.writeJson(res, steplist);
         });
       }
 
@@ -97,17 +97,44 @@ function catchallsteps(nextstep){
 }
 
 /*-----------------*/
+
 module.exports.stepPOST = function stepPOST (req, res, next) {
   var member = req.swagger.params['member'].value;
   Step.stepPOST(member)
     .then(function (response) {
-      utils.writeJson(res, response);
+      const object = member;
+      newstep(object["sid"], object["group"], object["title"], object["deadline"], object["status"], object["submid"], object["adminmid"], object["description"], object["log"],function(r){
+        utils.writeJson(res, r);
+      });
+
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
 };
 
+//INSERT INTO `step` (`sid`, `group`, `title`, `deadline`, `status`, `submid`, `adminmid`, `description`, `log`) VALUES (NULL, 'NCU_NLT', '入學英語測驗', '2018-09-10', NULL, '1', '3', '所有新生須參加，未達門檻者由指導教授加以訓練後通過。', NULL);
+
+function newstep(sid, group, title, deadline, status, submid, adminmid, description, log,nextstep){
+
+  const connection = new sql('PHD');
+  status = status != -1 ? status:null;
+  sid = sid != "NULL" ? sid:null;
+  var querytext = "INSERT INTO `step` (`sid`, `group`, `title`, `deadline`, `status`, `submid`, `adminmid`, `description`, `log`) VALUES (NULL, '"+group+"', '"+title+"', '"+deadline+"', "+status+", '"+submid+"', '"+adminmid+"', '"+description+"', '"+log+"');";
+
+  console.log(querytext);
+
+  connection.query(querytext, function(returnValue) {
+      nextstep(returnValue);
+  });
+}
+
+/*-----------------*/
+
+
+
+
+/*-----------------*/
 module.exports.stepPUT = function stepPUT (req, res, next) {
   var step = req.swagger.params['step'].value;
   Step.stepPUT(step)
