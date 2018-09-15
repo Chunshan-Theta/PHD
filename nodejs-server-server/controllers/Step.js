@@ -4,17 +4,33 @@ var utils = require('../utils/writer.js');
 var Step = require('../service/StepService');
 var sql = require('./mysql_con.js');
 var cd = require('./classdefined.js');
-
+/*------------*/
 module.exports.stepDELETE = function stepDELETE (req, res, next) {
+  //DELETE FROM `step` WHERE `step`.`sid` = 12
   var sid = req.swagger.params['sid'].value;
   Step.stepDELETE(sid)
     .then(function (response) {
-      utils.writeJson(res, response);
+
+      deletestep(sid,function(re){
+          utils.writeJson(res, re);
+      });
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
 };
+
+function deletestep(sid,nextstep){
+
+  const connection = new sql('PHD');
+  var querytext = "DELETE FROM `step` WHERE `step`.`sid` = "+sid;
+
+  connection.query(querytext, function(returnValue) {
+      nextstep(returnValue);
+  });
+}
+
+/*------------*/
 /*------------*/
 module.exports.stepGET = function stepGET (req, res, next) {
   var sid = req.swagger.params['sid'].value != null ? req.swagger.params['sid'].value.split(","):[];
@@ -135,15 +151,35 @@ function newstep(sid, group, title, deadline, status, submid, adminmid, descript
 
 
 /*-----------------*/
-
 //UPDATE `step` SET `submid` = '1' WHERE `step`.`sid` = 11;
 module.exports.stepPUT = function stepPUT (req, res, next) {
   var step = req.swagger.params['step'].value;
+
   Step.stepPUT(step)
     .then(function (response) {
-      utils.writeJson(res, response);
+      if(step['sid'] == "NULL"){
+        utils.writeJson(res, {"error":"bad input: not defined var: sid"},400);
+      }
+
+
+      updatestep(step,function(re){
+        utils.writeJson(res, re);
+      });
+
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
 };
+
+function updatestep(object,nextstep){
+  //UPDATE `step` SET `adminmid` = '3',`title`="test",`deadline` = "2018-09-21",`status` = "0",`description` = "test",`log`="somethings" WHERE `step`.`sid` = 1;
+
+  const connection = new sql('PHD');
+  var querytext = 'UPDATE `step` SET `title`="'+object['title']+'",`deadline` = "'+object['deadline']+'",`status` = "'+object['status']+'",`description` = "'+object['description']+'",`log`="'+object['log']+'" WHERE `step`.`sid` = '+object['sid']+';'
+  console.log(querytext);
+
+  connection.query(querytext, function(returnValue) {
+      nextstep(returnValue);
+  });
+}
