@@ -59,7 +59,7 @@ function catchallmembers(nextstep){
       var memberlist=[];
       for(var idx in returnValue){
         const json_member = returnValue[idx];
-        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],[],json_member["hidden"],json_member["description"]);
+        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"]);
         memberlist.push(class_member);
       }
       nextstep(memberlist);
@@ -90,7 +90,7 @@ function catchmembers(mid,name,group,permission,nextstep){
       var memberlist=[];
       for(var idx in returnValue){
         const json_member = returnValue[idx];
-        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],[],json_member["hidden"],json_member["description"]);
+        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"]);
         memberlist.push(class_member);
       }
       nextstep(memberlist);
@@ -109,7 +109,16 @@ module.exports.memberPOST = function memberPOST (req, res, next) {
   var member = req.swagger.params['member'].value;
   Member.memberPOST(member)
     .then(function (response) {
-      utils.writeJson(res, response);
+      console.log(member);
+      var mid = member["mid"] == "NULL" ? null: member["mid"];
+      var hidden = member["hidden"] == true ? "1": "0";
+      const newmember = new cd.member(mid,member["name"],member["group"],member["permission"],hidden,member["description"]);
+
+      //console.log(newmember);
+      creatamember(newmember,function(re){
+        utils.writeJson(res, re);
+      });
+
     })
     .catch(function (response) {
       utils.writeJson(res, response);
@@ -117,6 +126,20 @@ module.exports.memberPOST = function memberPOST (req, res, next) {
 };
 
 
+function creatamember(object,nextstep){
+
+  //INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, 'testB', 'testB', '王君善B', '{"入學年":"2019-02-0A","指導老師":"吳穎沺"}', 'NCU_NLT', 'user', '0');
+  const connection = new sql('PHD');
+  //console.log(object);
+  var querytext = 'INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, "'+object.account+'", "'+object.pws+'", "'+object.name+'", "'+object.description+'", "'+object.group+'", "'+object.permission+'", "'+object.hidden+'");';
+  console.log(querytext);
+
+  connection.query(querytext, function(returnValue) {
+      //console.log(returnValue);
+
+      nextstep(returnValue);
+  });
+}
 /* --------*/
 
 

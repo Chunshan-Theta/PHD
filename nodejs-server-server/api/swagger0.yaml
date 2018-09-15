@@ -39,7 +39,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/submembers"
+            $ref: "#/definitions/inline_response_200"
       x-swagger-router-controller: "Business"
   /submemberswithexcel:
     get:
@@ -284,6 +284,7 @@ definitions:
     required:
     - "account"
     - "group"
+    - "mid"
     - "name"
     - "pws"
     properties:
@@ -301,33 +302,45 @@ definitions:
         type: "string"
       permission:
         type: "string"
-
+      steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/step"
+      alert:
+        type: "boolean"
+      hidden:
+        type: "boolean"
     example:
-      hidden: false
+      hidden: true
       alert: true
       name: "name"
-      mid: "NULL"
-      description: "{\"入學年\":\"2019-02-01\",\"指導老師\":\"test\"}"
-      permission: "user"
+      mid: "mid"
+      description: "description"
+      permission: "permission"
       pws: "pws"
+      steps:
+      - log: "log"
+        description: "description"
+        title: "title"
+        deadline: "deadline"
+        sid: "sid"
+        group: "group"
+        status: true
+      - log: "log"
+        description: "description"
+        title: "title"
+        deadline: "deadline"
+        sid: "sid"
+        group: "group"
+        status: true
       account: "account"
       group: "group"
-  submember:
-    allOf:
-      - $ref: '#/definitions/member'
-    properties:
-      steps:
-        type: array
-        items:
-          $ref: '#/definitions/step'
-
-
-  submembers:
+  inline_response_200:
     properties:
       members:
         type: "array"
         items:
-          $ref: "#/definitions/submember"
+          $ref: "#/definitions/member"
     example:
       members:
       - hidden: true
