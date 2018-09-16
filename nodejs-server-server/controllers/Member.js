@@ -9,13 +9,27 @@ module.exports.memberDELETE = function memberDELETE (req, res, next) {
   var mid = req.swagger.params['mid'].value;
   Member.memberDELETE(mid)
     .then(function (response) {
-      utils.writeJson(res, response);
+      deletemember(mid,function(re){
+          utils.writeJson(res, re);
+      });
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
 };
 
+
+
+function deletemember(mid,nextstep){
+
+  const connection = new sql('PHD');
+  var querytext = "DELETE FROM `member` WHERE `member`.`mid` = "+mid;
+
+  connection.query(querytext, function(returnValue) {
+      nextstep(returnValue);
+  });
+}
+/*-------------------*/
 
 /* ---- memberGET ----*/
 
@@ -113,7 +127,8 @@ module.exports.memberPOST = function memberPOST (req, res, next) {
       var mid = member["mid"] == "NULL" ? null: member["mid"];
       var hidden = member["hidden"] == true ? "1": "0";
       const newmember = new cd.member(mid,member["name"],member["group"],member["permission"],hidden,member["description"]);
-
+      newmember.account = member["account"];
+      newmember.pws = member["pws"];
       //console.log(newmember);
       creatamember(newmember,function(re){
         utils.writeJson(res, re);
@@ -131,7 +146,7 @@ function creatamember(object,nextstep){
   //INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, 'testB', 'testB', '王君善B', '{"入學年":"2019-02-0A","指導老師":"吳穎沺"}', 'NCU_NLT', 'user', '0');
   const connection = new sql('PHD');
   //console.log(object);
-  var querytext = 'INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, "'+object.account+'", "'+object.pws+'", "'+object.name+'", "'+object.description+'", "'+object.group+'", "'+object.permission+'", "'+object.hidden+'");';
+  var querytext = 'INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, "'+object.account+'", "'+object.pws+'", "'+object.name+'", \''+object.description_str+'\', "'+object.group+'", "'+object.permission+'", "'+object.hidden+'");';
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
@@ -155,9 +170,33 @@ module.exports.memberPUT = function memberPUT (req, res, next) {
   var member = req.swagger.params['member'].value;
   Member.memberPUT(member)
     .then(function (response) {
-      utils.writeJson(res, response);
+      var hidden = member["hidden"] == true ? "1": "0";
+
+      var thismember = new cd.member(member["mid"],member["name"],member["group"],member["permission"],hidden,member["description"]);
+      thismember.pws = member["pws"];
+      console.log(thismember);
+      updatemember(thismember,function(re){
+
+        utils.writeJson(res, re);
+      });
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
 };
+
+
+function updatemember(m,nextstep){
+
+    //INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, 'testB', 'testB', '王君善B', '{"入學年":"2019-02-0A","指導老師":"吳穎沺"}', 'NCU_NLT', 'user', '0');
+    const connection = new sql('PHD');
+    //console.log(object);
+    var querytext = 'UPDATE `member` SET `pws`="'+m.pws+'",`name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\' WHERE `member`.`mid` = '+m.mid+';'
+    console.log(querytext);
+
+    connection.query(querytext, function(returnValue) {
+        //console.log(returnValue);
+
+        nextstep(returnValue);
+    });
+}
