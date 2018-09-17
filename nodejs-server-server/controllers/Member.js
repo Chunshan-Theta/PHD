@@ -48,7 +48,7 @@ module.exports.memberGET = function memberGET (req, res, next) {
         });
       }
       else{
-        catchmembers(mid,name,group,permission,function(reback){
+        module.exports.catchmembers(mid,name,group,permission,function(reback){
 
           utils.writeJson(res,reback);
         });
@@ -80,7 +80,7 @@ function catchallmembers(nextstep){
   });
 }
 
-function catchmembers(mid,name,group,permission,nextstep){
+module.exports.catchmembers =function catchmembers(mid,name,group,permission,nextstep){
 
   const connection = new sql('PHD');
   var querytext = "SELECT * FROM `member` WHERE 0 ";
