@@ -10,7 +10,7 @@ info:
     email: "gavin19950511@gmail.com"
   license:
     name: "Apache 2.0"
-host: "localhost:3000"
+host: "localhost:3080"
 basePath: "/PHD"
 tags:
 - name: "member"

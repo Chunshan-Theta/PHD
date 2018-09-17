@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>BSATest</title>
+    <style>
+
+    </style>
+  </head>
+  <body>    
+  <p>嵌入網頁<input id="page_src" /><button onclick="myFunction()">Send</button><h3 id="errortxt" ></h3></p>
+
+
+
+
+
+
+
+  <!-- Script -->
+  <script type="text/javascript">
+  	function myFunction() {
+            document.getElementById("errortxt").innerHTML = "";                    
+            var url = document.getElementById("page_src").value;
+            $.ajax({
+                  url: url,
+                  type: 'GET',
+                  complete: function(e, xhr, settings){
+                      document.getElementById('page').src = document.getElementById("page_src").value;
+                      if(e.status != 200){                       
+                          document.getElementById("errortxt").innerHTML = "不能嵌入的可能原因：(1) 網址錯誤 (2)該網站不允許外部嵌入，請使用該網站專用嵌入網址。 ";
+                      }
+                  }
+            });
+      }
+  </script>>
+  </body>
+
+</html>

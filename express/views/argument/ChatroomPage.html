@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>chatroom</title>
+    <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font: 13px Helvetica, Arial; }
+    form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+    form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+    form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+    #mess_bar { list-style-type: none; margin: 0; padding: 0; }
+    #mess_bar li { padding: 5px 10px; }
+    #mess_bar li:nth-child(odd) { background: #eee; }
+    #draggable { width: 50%; height: 500px; padding: 0.5em;background: #eee; }
+    #errortxt{color:rgb(255,0,0)}
+    form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+
+    </style>
+  </head>
+  <body>    
+    <h2>
+      <%=title%><%=room%> <br>使用者名稱：<%=UserName%><br>      
+    </h2>
+    <ul id="mess_bar"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+      $( function() {
+        $( "#draggable" ).resizable();
+      } );
+
+	  var socket = io();
+      var room_ID = '<%=room%>'
+      var UserName = '<%=UserName%>'
+	  $('form').submit(function(){
+	    socket.emit('Push_message', UserName+': '+$('#m').val(),room_ID);
+	    $('#m').val('');
+	    return false;
+	  });
+
+	  socket.on(room_ID+'_upload_message', function(msg){
+	    $('#mess_bar').append($('<li>').text(msg));
+	  });
+
+      
+	</script>
+  </body>
+</html>
