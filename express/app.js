@@ -62,5 +62,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var port = 3030;
+var host = 'localhost';
+app.set('host', host);
+app.set('port', port);
 
+module.exports.siteroot = "http://"+host+":"+port;
 module.exports = app;

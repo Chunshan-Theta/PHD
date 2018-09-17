@@ -1,22 +1,11 @@
 'use strict';
 
 
+
+
 /**
- * 
- * 
  *
- * no response value expected for this operation
- **/
-exports.newsubmemberPOST = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * 
- * 
+ *
  *
  * mid String host's mid
  * returns inline_response_200
@@ -88,17 +77,3 @@ exports.submembersGET = function(mid) {
     }
   });
 }
-
-
-/**
- * 
- * 
- *
- * no response value expected for this operation
- **/
-exports.submemberswithexcelGET = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-

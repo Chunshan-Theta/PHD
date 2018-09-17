@@ -62,20 +62,22 @@ var member2 = new member("m2","Gavin","NCU-NLT","user",[step1_2,step2,step3],fal
 var member3 = new member("m3","Theta","NCU-NLT","user",[step1_3,step2,step3],false,"{\"入學年\":\"2018\",\"學號\":\"106524020\",\"聯絡方式\":\"DemoStudent3@mail.com\"}");
 
 
-var input_submembers = {
+var Demosubmembers= {
   "members": [member1,member2,member3]
+};
+//inputsubmembers(Demosubmembers);
+function inputsubmembers(input_submembers){
+  for(var idx in input_submembers["members"]){
+    const m = input_submembers["members"][idx];
+    $.cookie(m.name, JSON.stringify(m), { expires: 1 });
+    addmembertolist(m);
+  }
 }
 
 
 
 
 
-
-for(var idx in input_submembers["members"]){
-  const m = input_submembers["members"][idx];
-  $.cookie(m.name, JSON.stringify(m), { expires: 1 });
-  addmembertolist(m);
-}
 
 
 //$("#members").append(" <b>Hello world!</b>");

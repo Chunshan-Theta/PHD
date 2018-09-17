@@ -5,6 +5,7 @@ var Member = require('../service/MemberService');
 var sql = require('./mysql_con.js');
 var cd = require('./classdefined.js');
 
+
 module.exports.memberDELETE = function memberDELETE (req, res, next) {
   var mid = req.swagger.params['mid'].value;
   Member.memberDELETE(mid)
@@ -69,7 +70,7 @@ function catchallmembers(nextstep){
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
-      console.log(returnValue);
+      //console.log(returnValue);
       var memberlist=[];
       for(var idx in returnValue){
         const json_member = returnValue[idx];

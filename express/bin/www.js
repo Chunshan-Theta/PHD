@@ -2,10 +2,15 @@
 var debug = require('debug')('my-application');
 var app = require('../app');
 
-app.set('port', process.env.PORT || 3030);
+//var host ="localhost";
+//var port ="3030";
 
-var server = app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + server.address().port);
+
+
+//app.set('port', process.env.PORT || port);
+
+var server = app.listen(app.get('port'),app.get('host'), function() {
+  console.log('Express server listening on port ' + server.address().port+','+server.address().address);
 });
 
 
@@ -20,3 +25,5 @@ io.on('connection', function(socket){
     });
 
 });
+
+module.exports = app;
