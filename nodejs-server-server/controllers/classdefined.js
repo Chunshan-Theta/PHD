@@ -23,7 +23,7 @@ module.exports.submember = class submember extends this.member {
 }
 
 module.exports.step = class step {
-  constructor(sid,group,title,deadline,log,status,description) {
+  constructor(sid,group,title,deadline,log,status,description,submid,adminmid) {
     this.sid = sid;
     this.group = group;
     this.title = title;
@@ -31,5 +31,7 @@ module.exports.step = class step {
     this.deadline = deadline;
     this.log = log;
     this.status = status;
+    this.submid = submid;
+    this.adminmid = adminmid;
   }
 }

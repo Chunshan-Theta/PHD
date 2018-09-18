@@ -46,7 +46,7 @@ module.exports.stepGET = function stepGET (req, res, next) {
         });
       }
       else {
-        catchsteps(sid,title,group,submid,adminmid,function(steplist){
+        module.exports.catchsteps(sid,title,group,submid,adminmid,function(steplist){
           utils.writeJson(res, steplist);
         });
       }
@@ -58,7 +58,7 @@ module.exports.stepGET = function stepGET (req, res, next) {
 };
 
 
-function catchsteps(sid,title,group,submid,adminmid,nextstep){
+module.exports.catchsteps = function (sid,title,group,submid,adminmid,nextstep){
 
   const connection = new sql('PHD');
   var querytext = "SELECT * FROM `step` WHERE 0 ";
@@ -85,7 +85,8 @@ function catchsteps(sid,title,group,submid,adminmid,nextstep){
       var steplist=[];
       for(var idx in returnValue){
         const json_step = returnValue[idx];
-        const class_step = new cd.step(json_step["sid"],json_step["group"],json_step["title"],json_step["description"],json_step["deadline"],json_step["status"],json_step["status"]);
+        //sid,group,title,deadline,log,status,description,submid,adminmid
+        const class_step = new cd.step(json_step["sid"],json_step["group"],json_step["title"],json_step["deadline"],json_step["log"],json_step["status"],json_step["description"],json_step["submid"],json_step["adminmid"]);
         steplist.push(class_step);
       }
       nextstep(steplist);
@@ -98,14 +99,14 @@ function catchallsteps(nextstep){
   const connection = new sql('PHD');
   var querytext = "SELECT * FROM `step` ";
 
-  console.log(querytext);
+  //console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
       //console.log(returnValue);
       var steplist=[];
       for(var idx in returnValue){
         const json_step = returnValue[idx];
-        const class_step = new cd.step(json_step["sid"],json_step["group"],json_step["title"],json_step["description"],json_step["deadline"],json_step["status"],json_step["status"]);
+        const class_step = new cd.step(json_step["sid"],json_step["group"],json_step["title"],json_step["deadline"],json_step["log"],json_step["status"],json_step["description"],json_step["submid"],json_step["adminmid"]);
         steplist.push(class_step);
       }
       nextstep(steplist);

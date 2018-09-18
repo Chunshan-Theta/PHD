@@ -81,7 +81,7 @@ function catchallmembers(nextstep){
   });
 }
 
-module.exports.catchmembers =function catchmembers(mid,name,group,permission,nextstep){
+module.exports.catchmembers =function(mid,name,group,permission,nextstep){
 
   const connection = new sql('PHD');
   var querytext = "SELECT * FROM `member` WHERE 0 ";
@@ -101,7 +101,7 @@ module.exports.catchmembers =function catchmembers(mid,name,group,permission,nex
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
-      console.log(returnValue);
+      //console.log(returnValue);
       var memberlist=[];
       for(var idx in returnValue){
         const json_member = returnValue[idx];
