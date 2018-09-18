@@ -260,11 +260,14 @@
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script>
 	 	var djson = '<%=submembers%>';
-	 	djson = djson.replace(/&#34;/g,"\"");
-	 	djson = djson.replace(/&#39;/g,"\\\"");
-	 	//console.log(djson);
-	 	const ms = JSON.parse(djson);
-	 	inputsubmembers(ms);
+		if(djson!='error'){
+			djson = djson.replace(/&#34;/g,"\"");
+			djson = djson.replace(/&#39;/g,"\\\"");
+			//console.log(djson);
+			const ms = JSON.parse(djson);
+			inputsubmembers(ms);
+		}
+
 	 </script>
 </body>
 

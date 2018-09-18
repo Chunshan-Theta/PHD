@@ -46,19 +46,12 @@ module.exports.submembersGET = function submembersGET (req, res, next) {
                     }
                     utils.writeJson(res, re_obj);
                   }
-
                 }
-
               });
             }
-
-
-
           }
-
-
-
         });
+
       });
     })
     .catch(function (response) {

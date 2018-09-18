@@ -14,8 +14,7 @@ router.get('/review', function(req, res) {
 
     api.getsubmember(mid,function(submembers){
 
-        submembers = JSON.stringify(submembers).replace(/\\"/g,"'");
-        console.log(submembers);
+        
         res.render('phd/index',{"siteroot":app.siteroot,"submembers":submembers});
     });
 
