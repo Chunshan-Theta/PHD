@@ -3,7 +3,7 @@
 
 <head>
 	<!-- Required meta tags -->
-	<meta charset="utf-8">
+	<meta charset="big5">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- fontawesome -->
@@ -16,7 +16,6 @@
 	 <!-- local -->
   <link href="<%=siteroot%>/phdstatic/css/index.css" rel="stylesheet" type="text/css" />
 	<link href="<%=siteroot%>/phdstatic/css/offcanvas.css" rel="stylesheet" type="text/css" />
-
 
 
 	<title>Path to a PHD</title>
@@ -259,6 +258,14 @@
 	 <script src="<%=siteroot%>/phdstatic/js/offcanvas.js"></script>
 	 <script src="<%=siteroot%>/phdstatic/js/submembers.js"></script>
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
+	 <script>
+	 	var djson = '<%=submembers%>';
+	 	djson = djson.replace(/&#34;/g,"\"");
+	 	djson = djson.replace(/&#39;/g,"\\\"");
+	 	//console.log(djson);
+	 	const ms = JSON.parse(djson);
+	 	inputsubmembers(ms);
+	 </script>
 </body>
 
 </html>

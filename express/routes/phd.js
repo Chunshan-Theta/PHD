@@ -8,17 +8,15 @@ router.get('/', function(req, res) {
 });
 
 router.get('/review', function(req, res) {
-    //var user = req.param('user', null);
+    var mid = req.param('mid', null);
 
 
 
-    api.getsubmember(function(submembers){
+    api.getsubmember(mid,function(submembers){
 
+        submembers = JSON.stringify(submembers).replace(/\\"/g,"'");
         console.log(submembers);
-        var Demosubmembers= {
-          "members": [member1,member2,member3]
-        };
-        res.render('phd/index',{"siteroot":app.siteroot,"submembers":Demosubmembers});
+        res.render('phd/index',{"siteroot":app.siteroot,"submembers":submembers});
     });
 
 

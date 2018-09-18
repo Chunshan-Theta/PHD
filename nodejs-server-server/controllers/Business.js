@@ -14,6 +14,7 @@ module.exports.submembersGET = function submembersGET (req, res, next) {
         if(re.length == 0){
           utils.writeJson(res, {"content":"not find the mid"},404);
         }
+        //console.log(re[0]);
         const group = re[0]['group'];
         var thissubmembers = MemberApi.catchmembers([],[],[group],[],function(re2){
           //console.log(re2);
