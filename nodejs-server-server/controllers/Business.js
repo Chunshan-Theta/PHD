@@ -58,3 +58,43 @@ module.exports.submembersGET = function submembersGET (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+
+module.exports.submemberGET = function submemberGET (req, res, next) {
+  var mid = req.swagger.params['mid'].value;
+  Business.submemberGET(mid)
+    .then(function (response) {
+      var mainm = MemberApi.catchmembers(mid,[],[],[],function(re){
+        if(re.length == 0){
+          utils.writeJson(res, {"content":"not find the mid"},404);
+        }
+
+        const stu = re[0];
+        var class_submember = new cd.submember(stu['mid'],stu['name'],stu['group'],stu['permission'],[],stu['hidden'],JSON.stringify(stu['description']));
+
+        StepApi.catchsteps([],[],[],[stu['mid']],[],function(re3){
+          if(re3.length==0){
+            var re_obj={};
+            re_obj['members'] =[];
+            re_obj['members'].push(class_submember);
+            utils.writeJson(res, re_obj);
+          }
+          for(var idx_re3 in re3){
+            const step = re3[idx_re3];
+            class_submember.steps.push(step);
+
+            if(idx_re3 == re3.length-1){
+              var re_obj={};
+              re_obj['members'] =[];
+              re_obj['members'].push(class_submember);
+              utils.writeJson(res, re_obj);
+            }
+          }
+        });
+
+      });
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};

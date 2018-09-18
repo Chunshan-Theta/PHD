@@ -54,7 +54,7 @@ function addasteptodiv(step){
     $("#"+containerinfo).append('<div class="col-md-2 p-3 my-1"><i class="fas fa-question-circle text-gray"></i></div>');
   }
 
-  $("#"+containerlog).append('<li class="text-right "><i class="fas pl-3 fa-edit" title="編輯"></i></li>');
+  $("#"+containerlog).append('<li class="text-right "><i class="fas pl-3 fa-edit adv" title="編輯"></i></li>');
   $("#"+containerlog).append('<li>'+step.log+'</li>');
   $("#"+containerlog).append('<li class="text-right text-gray">deadline:'+step.deadline+'2</li>');
 

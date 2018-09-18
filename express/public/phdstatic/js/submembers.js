@@ -109,8 +109,8 @@ function addmembertolist(member){
   $("#"+unitdiv).append('<p id="'+unitp+'" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">');
   $("#"+unitp).append('<strong id="'+uniticon+'" class="d-block text-right">');
   $("#"+uniticon).append('<i class="fas fa-exclamation p-1 text-red d-none"></i>');
-  $("#"+uniticon).append('<i class="fas fa-plus p-1"></i>');
-  $("#"+uniticon).append('<i class="fas fa-times p-1"></i>');
+  $("#"+uniticon).append('<i class="adv fas fa-plus p-1"></i>');
+  $("#"+uniticon).append('<i class="adv fas fa-times p-1"></i>');
   $("#"+unitp).append('<strong class="d-block text-black">'+member.name+'</strong>');
   $("#"+unitp).append('<div id="'+unitinfo+'" class="d-block text-black">');
   $("#"+unitinfo).append('<br>');

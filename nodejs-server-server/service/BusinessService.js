@@ -77,3 +77,9 @@ exports.submembersGET = function(mid) {
     }
   });
 }
+
+exports.submemberGET = function(mid) {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+}

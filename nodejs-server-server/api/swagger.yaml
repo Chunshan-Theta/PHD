@@ -41,7 +41,27 @@ paths:
           schema:
             $ref: "#/definitions/submembers"
       x-swagger-router-controller: "Business"
-
+  /submember:
+    get:
+      tags:
+      - "business"
+      summary: ""
+      description: ""
+      operationId: "submemberGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mid"
+        in: "query"
+        description: " mid"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/submembers"
+      x-swagger-router-controller: "Business"
   /member:
     get:
       tags:

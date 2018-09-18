@@ -7,15 +7,32 @@ router.get('/', function(req, res) {
   res.send('respond with a resource');
 });
 
-router.get('/review', function(req, res) {
+router.get('/login', function(req, res) {
+  res.render('phd/login',{"siteroot":app.siteroot});
+});
+router.get('/review/admin', function(req, res) {
     var mid = req.param('mid', null);
 
 
 
     api.getsubmember(mid,function(submembers){
 
-        
-        res.render('phd/index',{"siteroot":app.siteroot,"submembers":submembers});
+
+        res.render('phd/review_admin',{"siteroot":app.siteroot,"submembers":submembers});
+    });
+
+
+});
+
+router.get('/review/user', function(req, res) {
+    var mid = req.param('mid', null);
+
+
+
+    api.getyours(mid,function(submembers){
+
+
+        res.render('phd/review_user',{"siteroot":app.siteroot,"submembers":submembers});
     });
 
 
