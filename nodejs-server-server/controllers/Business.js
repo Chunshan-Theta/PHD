@@ -6,6 +6,33 @@ var cd = require('./classdefined.js');
 var MemberApi = require('./Member.js');
 var StepApi = require('./Step.js');
 
+module.exports.logintestGET = function logintestGET (req, res, next) {
+  var account = req.swagger.params['account'].value;
+  var pws = req.swagger.params['pws'].value;
+  Business.logintestGET(account,pws)
+    .then(function (response) {
+      var mainm = MemberApi.catchmembers([],[],[],[],function(re){
+        console.log(re);
+        if(re.length==0){
+          utils.writeJson(res, {"content":"the account note register"},404);
+        }else if(re[0]['pws']==pws){
+          utils.writeJson(res, re);
+        }else {
+          utils.writeJson(res, {"content":"passwords error"},400);
+        }
+
+      },[account]);
+      //utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+
+
+
+
 module.exports.submembersGET = function submembersGET (req, res, next) {
   var mid = req.swagger.params['mid'].value;
   Business.submembersGET(mid)

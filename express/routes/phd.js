@@ -4,7 +4,7 @@ var api = require('./phd/con_api.js');
 var app = require('../app');
 /* GET users listing. */
 router.get('/', function(req, res) {
-  res.send('respond with a resource');
+  res.redirect(app.siteroot+'/phd/login');
 });
 
 router.get('/login', function(req, res) {

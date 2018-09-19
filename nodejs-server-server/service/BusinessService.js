@@ -83,3 +83,8 @@ exports.submemberGET = function(mid) {
     resolve();
   });
 }
+exports.logintestGET = function(mid) {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+}

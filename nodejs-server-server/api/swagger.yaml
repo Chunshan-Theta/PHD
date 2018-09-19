@@ -20,6 +20,32 @@ tags:
 schemes:
 - "http"
 paths:
+  /logintest:
+    get:
+      tags:
+      - "business"
+      summary: ""
+      description: ""
+      operationId: "logintestGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "account"
+        in: "query"
+        description: "account"
+        required: true
+        type: "string"
+      - name: "pws"
+        in: "query"
+        description: "pws"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/member"
+      x-swagger-router-controller: "Business"
   /submembers:
     get:
       tags:

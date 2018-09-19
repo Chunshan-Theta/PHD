@@ -81,7 +81,7 @@ function catchallmembers(nextstep){
   });
 }
 
-module.exports.catchmembers =function(mid,name,group,permission,nextstep){
+module.exports.catchmembers = function(mid,name,group,permission,nextstep,account=[],pws=[]){
 
   const connection = new sql('PHD');
   var querytext = "SELECT * FROM `member` WHERE 0 ";
@@ -98,6 +98,12 @@ module.exports.catchmembers =function(mid,name,group,permission,nextstep){
   for(var idx in permission){
     querytext+= "OR `permission`= '"+permission[idx]+"'";
   }
+  for(var idx in account){
+    querytext+= "OR `account`= '"+account[idx]+"'";
+  }
+  for(var idx in pws){
+    querytext+= "OR `pws`= '"+pws[idx]+"'";
+  }
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
@@ -106,6 +112,10 @@ module.exports.catchmembers =function(mid,name,group,permission,nextstep){
       for(var idx in returnValue){
         const json_member = returnValue[idx];
         const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"]);
+        if(account.length>0){
+          class_member.account = json_member["account"];
+          class_member.pws = json_member["pws"];
+        }
         memberlist.push(class_member);
       }
       nextstep(memberlist);
