@@ -26,6 +26,7 @@ function showsteps(name){
 
   $("#stepslistcontent").remove();
   const m = JSON.parse($.cookie(name));
+  $("#addstep").attr("onclick",'newastep(\''+m.mid+'\');');
 
   $("#stepslist").append('<div id="stepslistcontent">');
   //console.log(m.steps);
@@ -40,12 +41,12 @@ function addasteptodiv(step){
   const containerinfo = "info_"+step.sid;
   const containerlog = "log_"+step.sid;
 
-  $("#stepslistcontent").append('<div id="'+containername+'" class="border-bottom border-black">');
-  $("#"+containername).append('<div id="'+containerinfo+'" class="media text-muted pt-3 row likebutton" onclick="showlog(\''+containerlog+'\')">');
+  $("#stepslistcontent").append('<div id="'+containername+'" class="border-bottom border-black ">');
+  $("#"+containername).append('<div id="'+containerinfo+'" class="media text-muted pt-3 row btn btn-default likebutton" onclick="showlog(\''+containerlog+'\')">');
   $("#"+containername).append('<div id="'+containerlog+'" class="pt-3 p-3 bg-lightgray d-none ">');
 
-  $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1">'+step.title+' </div>');
-  $("#"+containerinfo).append('<div class="col-md-6 p-3 my-1">'+step.description+'</div>');
+  $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1 text-in-div">'+step.title+' </div>');
+  $("#"+containerinfo).append('<div class="col-md-6 p-3 my-1 text-in-div">'+step.description+'</div>');
   if(step.status == true){
     $("#"+containerinfo).append('<div class="col-md-2 p-3 my-1"><i class="fas fa-check text-green"></i></div>');
   }else if (step.status == false) {
@@ -53,9 +54,10 @@ function addasteptodiv(step){
   }else{
     $("#"+containerinfo).append('<div class="col-md-2 p-3 my-1"><i class="fas fa-question-circle text-gray"></i></div>');
   }
+    //$("#"+containerinfo).append('<div class="col-md-1 p-3 my-1"><i class="fas fa-arrow-down text-gray"></i></div>');
 
   $("#"+containerlog).append('<li class="text-right "><i class="fas pl-3 fa-edit adv" title="編輯"></i></li>');
-  $("#"+containerlog).append('<li>'+step.log+'</li>');
+  $("#"+containerlog).append('<li class="text-in-div">'+step.log+'</li>');
   $("#"+containerlog).append('<li class="text-right text-gray">deadline:'+step.deadline+'2</li>');
 
 

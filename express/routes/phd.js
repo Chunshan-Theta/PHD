@@ -10,6 +10,25 @@ router.get('/', function(req, res) {
 router.get('/login', function(req, res) {
   res.render('phd/login',{"siteroot":app.siteroot});
 });
+router.post('/login', function(req, res) {
+  var account = req.param('account', null);
+  var pws = req.param('pws', null);
+
+  api.login(account,pws,function(status,re){
+
+      if(status){
+
+        //res.redirect(app.siteroot+'/phd/review/'+re['permission']+"/?mid="+re['mid']);
+        res.send(app.siteroot+'/phd/review/'+re['permission']+"/");
+      }else{
+        res.send(re);
+      }
+  });
+
+
+
+  //res.render('phd/login',{"siteroot":app.siteroot});
+});
 router.get('/review/admin', function(req, res) {
     var mid = req.param('mid', null);
 

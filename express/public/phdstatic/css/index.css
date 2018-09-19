@@ -25,3 +25,7 @@ li{
 .likebutton:active {
   background-color: lightgray;
  }
+.text-in-div{
+
+  white-space: normal !important;
+}

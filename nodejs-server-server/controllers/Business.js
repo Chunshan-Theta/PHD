@@ -14,7 +14,7 @@ module.exports.logintestGET = function logintestGET (req, res, next) {
       var mainm = MemberApi.catchmembers([],[],[],[],function(re){
         console.log(re);
         if(re.length==0){
-          utils.writeJson(res, {"content":"the account note register"},404);
+          utils.writeJson(res, {"content":"the account not register"},404);
         }else if(re[0]['pws']==pws){
           utils.writeJson(res, re);
         }else {

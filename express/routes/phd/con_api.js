@@ -39,3 +39,25 @@ module.exports.getyours = function (mid,CallbackFunc){
       })
 
 }
+
+
+module.exports.login = function (account,pws,CallbackFunc){
+
+
+
+      request('http://localhost:3080/PHD/logintest?account='+account+'&pws='+pws, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(body) // 打印google首页
+
+          submembers = JSON.parse(body);
+          CallbackFunc(1,submembers[0]);
+
+        }
+        else {
+          console.log(body);
+
+          CallbackFunc(0,JSON.parse(body)['content']);
+        }
+      })
+
+}
