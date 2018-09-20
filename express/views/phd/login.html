@@ -104,10 +104,19 @@
 				<div class="forgot">
 					<a href="#">Forgot password?</a>
 				</div>
-				<button type="submit" class="btn bg-gray btn-primary"id='test' onclick="login();">Login</button>
+				<div class="row" style="padding-left: 15px;">
 
+					<button type="submit" class="btn bg-gray btn-primary" id='submit' onclick="login();">Login</button>
+					<div id="lodingimg" class="circles-to-rhombuses-spinner d-none" style="padding-top: 18px;padding-left: 20px;">
+					  <div class="circle"></div>
+					  <div class="circle"></div>
+					  <div class="circle"></div>
+					</div>
+				</div>
 			</div>
+
 		</div>
+
 		<p class="botto-text"> Designed by Sunil Rajput</p>
 		</div>
 
@@ -138,6 +147,8 @@
 			 function login() {
 				 var account = $('#inputAccount').val()//
 				 var pws = $('#inputPassword').val();
+				 $('#submit').attr('disabled', true);
+				 $("#lodingimg").removeClass("d-none");
 
 				 $.post("./login",
 					 {
@@ -146,7 +157,16 @@
 
 					 },
 						 function(data, status) {
-								 alert(data);
+
+								 if(!data.includes('error')){
+									 alert('success');
+									 window.location = '<%=siteroot%>/phd/?tag='+data;
+								 }else{
+									 alert(data);
+
+								 }
+								 $('#submit').attr('disabled', false);
+								 $("#lodingimg").addClass("d-none");
 
 				  });
 			}

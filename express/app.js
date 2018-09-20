@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var phd = require('./routes/phd');
 var app = express();
+var session = require('express-session')
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +28,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* session*/
+
+
+
+app.use(session({
+  secret: 'catandmorecats', // 建议使用 128 个字符的随机字符串
+  cookie: { maxAge: 12 * 60 * 60 * 1000 }
+}));
+
+
+/*
+*/
 
 app.use('/', routes);
 app.use('/phd', phd);
