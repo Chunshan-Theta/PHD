@@ -87,4 +87,33 @@ router.get('/review/user', function(req, res) {
 
 
 });
+
+/////
+
+
+router.get('/newsubmember', function(req, res) {
+  var group = req.param('group', null);
+  var today = new Date().toLocaleDateString();
+  res.render('phd/newsubmember',{"siteroot":app.siteroot,"group":group,"today":today});
+});
+router.post('/newsubmember', function(req, res) {
+  var account = req.param('account', null);
+  var pws = req.param('pws', null);
+  var name = req.param('name', null);
+  var entertime = req.param('entertime', null);
+  var teacher = req.param('teacher', null);
+  var group = req.param('group', null);
+
+
+  api.newsubmember(account,pws,name,entertime,teacher,group,function(pass,content){
+      
+      if(pass){
+        res.send('business api completed,ID :'+content);
+      }
+      else {
+        res.send('error: '+content);
+      }
+
+  });
+});
 module.exports = router;

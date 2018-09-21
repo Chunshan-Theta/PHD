@@ -3,7 +3,7 @@ var request = require('request');
 
 module.exports.getsubmember = function (mid,CallbackFunc){
       console.log(mid);
-      request('http://localhost:3080/PHD/submembers?mid='+mid, function (error, response, body) {
+      request.get('http://localhost:3080/PHD/submembers?mid='+mid, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log(body) // 打印google首页
 
@@ -22,7 +22,7 @@ module.exports.getsubmember = function (mid,CallbackFunc){
 module.exports.getyours = function (mid,CallbackFunc){
       console.log(mid);
 
-      request('http://localhost:3080/PHD/submember?mid='+mid, function (error, response, body) {
+      request.get('http://localhost:3080/PHD/submember?mid='+mid, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log(body) // 打印google首页
 
@@ -44,7 +44,7 @@ module.exports.login = function (account,pws,CallbackFunc){
 
 
 
-      request('http://localhost:3080/PHD/logintest?account='+account+'&pws='+pws, function (error, response, body) {
+      request.get('http://localhost:3080/PHD/logintest?account='+account+'&pws='+pws, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log(body) // 打印google首页
 
@@ -59,4 +59,49 @@ module.exports.login = function (account,pws,CallbackFunc){
         }
       })
 
+}
+
+module.exports.newsubmember = function (account,pws,name,entertime,teacher,group,CallbackFunc){
+
+    var description={};
+    description['入學年'] = entertime;
+    description['指導老師']=teacher;
+    console.log(account,pws,name,JSON.stringify(description),group);
+    /*
+    request.post("http://localhost:3080/PHD/member",{
+        "account":account,
+        "pws":pws,
+        "name":name,
+        "group":group,
+        "description":description,
+        "permission":"user",
+        "hidden":false,
+        "alert":true,
+        "mid":"NULL"
+      },function(error,response,body){
+        console.log(response);
+        CallbackFunc('OK');
+      });
+      */
+      request.post("http://localhost:3080/PHD/member",function(error,response,body){
+        body = JSON.parse(body);
+        if(body['errno']){
+          console.log(body);
+          CallbackFunc(0,body['sqlMessage']);
+        }else {
+          console.log(body);
+          CallbackFunc(1,body['insertId']);
+        }
+
+      }).form({
+          "account":account,
+          "pws":pws,
+          "name":name,
+          "group":group,
+          "description":JSON.stringify(description),
+          "permission":"user",
+          "hidden":false,
+          "alert":true,
+          "mid":"NULL"
+        });
 }
