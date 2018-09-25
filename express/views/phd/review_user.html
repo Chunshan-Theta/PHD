@@ -266,6 +266,7 @@
 		if(djson!='error'){
 			djson = djson.replace(/&#34;/g,"\"");
 			djson = djson.replace(/&#39;/g,"\\\"");
+			djson = djson.replace(/\n/g,"<br>");
 			//console.log(djson);
 			const ms = JSON.parse(djson);
 			inputsubmembers(ms);

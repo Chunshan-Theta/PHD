@@ -144,6 +144,12 @@
 	 <script src="<%=siteroot%>/phdstatic/js/submembers.js"></script>
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script type="text/javascript">
+
+	 		 if($.cookie('UserTag')!='null'&&$.cookie('UserTag')!=null){
+				 console.log("$.cookie('UserTag'): ",$.cookie('UserTag'));
+				 window.location = '<%=siteroot%>/phd/?tag='+$.cookie('UserTag');
+			 }
+
 			 function login() {
 				 var account = $('#inputAccount').val()//
 				 var pws = $('#inputPassword').val();
@@ -160,6 +166,8 @@
 
 								 if(!data.includes('error')){
 									 alert('success');
+									 $.cookie('UserTag',data,{ expires: 1 ,path:'/'});
+									 //location.reload();//
 									 window.location = '<%=siteroot%>/phd/?tag='+data;
 								 }else{
 									 alert(data);

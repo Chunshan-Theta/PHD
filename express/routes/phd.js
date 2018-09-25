@@ -8,11 +8,14 @@ var md5 = require('js-md5');
 router.get('/', function(req, res) {
   var tag = req.param('tag', null);
   console.log(tag);
-  if(!req.session.user || !req.session.user[tag]) {
+  if(!req.session.user || tag==null) {
     console.log(req.session.user);
     //console.log("req.sc.tag: "+req.sc.tag);
     res.redirect(app.siteroot+'/phd/login');
-  }else{
+  }else if (!req.session.user[tag]) {
+    res.redirect(app.siteroot+'/phd/logout');
+  }
+  else{
     console.log(req.session.user[tag]['name']);
     res.redirect(req.session.user[tag]['homepage']+'?tag='+tag);
   }
@@ -20,9 +23,13 @@ router.get('/', function(req, res) {
 });
 router.get('/logout', function(req, res) {
   var tag = req.param('tag', null);
-  req.session.user[tag]=null;
-  console.log(req.session.user[tag]);
-  res.redirect(app.siteroot+'/phd/login');
+  if(tag==null){
+    res.render('phd/logout',{"siteroot":app.siteroot});
+  }else {
+    req.session.user[tag]=null;
+    res.render('phd/logout',{"siteroot":app.siteroot});
+  }
+
 });
 router.get('/login', function(req, res) {
 
@@ -140,7 +147,7 @@ router.post('/newstep', function(req, res) {
     api.NewStep(steps[idx],function(content){
         console.log(content);
     });
-    if(idx>=steps.length)res.send("end");
+    if(idx>=steps.length-1)res.send("end");
 
   }
 

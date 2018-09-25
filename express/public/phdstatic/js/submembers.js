@@ -112,7 +112,7 @@ function addmembertolist(member){
   $("#"+uniticon).append('<i class="fas fa-exclamation p-1 text-red d-none"></i>');
   //$("#"+uniticon).append('<i class="adv fas fa-edit p-1"></i>');
   $("#"+uniticon).append('<i class="adv fas fa-times p-1 " onclick="alert(\'XXX\');"></i>');
-  $("#"+uniticon).append('<i class="adv fas fa-arrow-right p-1"></i>');
+  $("#"+uniticon).append('<i class=" fas fa-arrow-right p-1"></i>');
   $("#"+unitp).append('<strong class="d-block text-black">'+member.name+'</strong>');
   $("#"+unitp).append('<div id="'+unitinfo+'" class="d-block text-black ">');
   $("#"+unitinfo).append('<br>');
