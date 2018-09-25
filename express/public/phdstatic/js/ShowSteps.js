@@ -15,9 +15,7 @@
 </div>
 */
 
-function newastep(name){
-  console.log(name);
-}
+
 function showsteps(name){
   $("#addstep").off("click");
   $.cookie('chosenmember', name, { expires: 1 });

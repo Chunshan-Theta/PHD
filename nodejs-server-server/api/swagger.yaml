@@ -10,7 +10,7 @@ info:
     email: "gavin19950511@gmail.com"
   license:
     name: "Apache 2.0"
-host: "140.115.126.216:3080"
+host: "localhost:3080"
 basePath: "/PHD"
 tags:
 - name: "member"
@@ -224,7 +224,7 @@ paths:
       operationId: "stepPOST"
       parameters:
       - in: "body"
-        name: "member"
+        name: "step"
         description: ""
         required: true
         schema:
@@ -268,10 +268,6 @@ paths:
 definitions:
   step:
     type: "object"
-    required:
-    - "group"
-    - "sid"
-    - "title"
     properties:
       sid:
         type: "string"
@@ -284,7 +280,7 @@ definitions:
       log:
         type: "string"
       status:
-        type: "integer"
+        type: "string"
       description:
         type: "string"
       submid:
@@ -298,7 +294,7 @@ definitions:
       deadline: "1995-05-11"
       sid: "NULL"
       group: "group"
-      status: -1
+      status: "-1"
       submid: "0"
       adminmid: "0"
   member:

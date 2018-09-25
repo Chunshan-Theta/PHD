@@ -37,14 +37,15 @@ module.exports.submembersGET = function submembersGET (req, res, next) {
   var mid = req.swagger.params['mid'].value;
   Business.submembersGET(mid)
     .then(function (response) {
-      var mainm = MemberApi.catchmembers(mid,[],[],[],function(re){
-        if(re.length == 0){
-          utils.writeJson(res, {"content":"not find the mid"},404);
-        }
+      var mainm = MemberApi.catchmembers([mid],[],[],[],function(re){
+
         //console.log(re[0]);
         const group = re[0]['group'];
         var thissubmembers = MemberApi.catchmembers([],[],[group],[],function(re2){
           //console.log(re2);
+          if(re2.length==1){
+            utils.writeJson(res, {});
+          }
           var submids = [];
           var submids_obj = {};
           for(var idx in re2){
@@ -59,8 +60,16 @@ module.exports.submembersGET = function submembersGET (req, res, next) {
 
 
             if(idx == re2.length-1){
+              console.log("submids: ",submids);
               StepApi.catchsteps([],[],[],submids,[],function(re3){
-
+                if(re3.length==0){
+                  var re_obj={};
+                  re_obj['members'] =[];
+                  for(var key in submids_obj){
+                    re_obj['members'].push(submids_obj[key]);
+                  }
+                  utils.writeJson(res, re_obj);
+                }
                 for(var idx_re3 in re3){
                   const step = re3[idx_re3];
 
@@ -91,7 +100,7 @@ module.exports.submemberGET = function submemberGET (req, res, next) {
   var mid = req.swagger.params['mid'].value;
   Business.submemberGET(mid)
     .then(function (response) {
-      var mainm = MemberApi.catchmembers(mid,[],[],[],function(re){
+      var mainm = MemberApi.catchmembers([mid],[],[],[],function(re){
         if(re.length == 0){
           utils.writeJson(res, {"content":"not find the mid"},404);
         }

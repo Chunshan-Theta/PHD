@@ -159,7 +159,7 @@
 				-->
 
 			</div>
-			<div class="text-right adv" ><a href="#">new a member</a></div>
+			<div class="text-right adv " ><a href="<%=siteroot%>/phd/newsubmember?group=<%=group%>">new a member</a></div>
 			</div>
 			<!---->
 
@@ -266,6 +266,10 @@
 			//console.log(djson);
 			const ms = JSON.parse(djson);
 			inputsubmembers(ms);
+		}
+		function newastep(id){
+		  console.log(id);
+		  location.href='<%=siteroot%>/phd/newstep?group=<%=group%>&submid='+id;
 		}
 
 	 </script>

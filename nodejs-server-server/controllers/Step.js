@@ -116,11 +116,12 @@ function catchallsteps(nextstep){
 /*-----------------*/
 
 module.exports.stepPOST = function stepPOST (req, res, next) {
-  var member = req.swagger.params['member'].value;
-  Step.stepPOST(member)
+  var step = req.swagger.params['step'].value;
+  Step.stepPOST(step)
     .then(function (response) {
-      const object = member;
-      newstep(object["sid"], object["group"], object["title"], object["deadline"], object["status"], object["submid"], object["adminmid"], object["description"], object["log"],function(r){
+      //const object = step;
+      console.log(step);
+      newstep(step["sid"], step["group"], step["title"], step["deadline"], step["status"], step["submid"], step["adminmid"], step["description"], step["log"],function(r){
         utils.writeJson(res, r);
       });
 
@@ -137,7 +138,8 @@ function newstep(sid, group, title, deadline, status, submid, adminmid, descript
   const connection = new sql('PHD');
   status = status != -1 ? status:null;
   sid = sid != "NULL" ? sid:null;
-  var querytext = "INSERT INTO `step` (`sid`, `group`, `title`, `deadline`, `status`, `submid`, `adminmid`, `description`, `log`) VALUES (NULL, '"+group+"', '"+title+"', '"+deadline+"', "+status+", '"+submid+"', '"+adminmid+"', '"+description+"', '"+log+"');";
+  adminmid = adminmid != "NULL" ? adminmid:null;
+  var querytext = "INSERT INTO `step` (`sid`, `group`, `title`, `deadline`, `status`, `submid`, `adminmid`, `description`, `log`) VALUES (NULL, '"+group+"', '"+title+"', '"+deadline+"', "+status+", '"+submid+"', "+adminmid+", '"+description+"', '"+log+"');";
 
   console.log(querytext);
 

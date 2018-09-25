@@ -84,6 +84,16 @@ body {
   height: 50px;
   line-height: 50px;
 }
+.form-control-flexible {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  font-size: 14px;
+  /*line-height: 50px;*/
+  min-height: 70px;
+  text-align: left;
+  vertical-align: text-top;
+}
 .login-div {
   border-radius: 2px;
   margin: 10px auto 30px;

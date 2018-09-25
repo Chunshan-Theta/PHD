@@ -77,7 +77,7 @@ app.use(function(err, req, res, next) {
 });
 
 var port = 3030;
-var host = '140.115.126.216';
+var host = 'localhost';
 app.set('host', host);
 app.set('port', port);
 

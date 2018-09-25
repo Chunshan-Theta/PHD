@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="big5">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	 crossorigin="anonymous">
+
+	 <!-- local -->
+  <link href="<%=siteroot%>/phdstatic/css/index.css" rel="stylesheet" type="text/css" />
+	<link href="<%=siteroot%>/phdstatic/css/offcanvas.css" rel="stylesheet" type="text/css" />
+
+
+	<title>Path to a PHD</title>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+		<a class="navbar-brand mr-auto mr-lg-0" href="#">Path to a PHD</a>
+		<button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+		<div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+			<!--
+			<ul class="navbar-nav mr-auto">
+
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Notifications</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Switch account</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+					 aria-expanded="false">Settings</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+			</ul>
+
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control-flexible mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+			-->
+		</div>
+	</nav>
+	<!--
+	<div class="nav-scroller bg-white shadow-sm">
+		<nav class="nav nav-underline">
+			<a class="nav-link active" href="#">Create a new User</a>
+			<a class="nav-link" href="#">
+				Member
+				<span class="badge badge-pill bg-light align-text-bottom">27</span>
+			</a>
+		</nav>
+	</div>
+	-->
+	<main role="main" class="container">
+		<!---->
+		<div class=" d-flex align-items-center my-3 p-3 rounded">
+			<i class="fas fa-user-graduate p-3 "></i>
+      <div class="lh-100">
+        <h6 class="mb-0 lh-100">Bootstrap</h6>
+        <small>Since 2011</small>
+      </div>
+    </div>
+		<!---->
+		<!---->
+		<div class="bg-dark login-div  ">
+			<div class="panel ">
+				<div class="row">
+					<h2 class="text-white col-md-10">step</h2>
+					<button class="btn btn-primary col-md-2" id='addstepunit' onclick="AddStepUnit();"><i class="fas fa-plus p-0"></i></button>
+
+				</div>
+				<p class="text-white">Please enter submember'data</p>
+
+			</div>
+			<div>
+				<div class="inputArea">
+					<!--
+					<div class="unitInput">
+						<div class="form-group row d-none" style="margin-bottom:0px;">
+							<input type="text" class="form-control-flexible col-md-6" id="group"  value="<%=group%>" placeholder="group">
+							<input type="text" class="form-control-flexible col-md-6" id="submid" value="<%=group%>" placeholder="submid">
+						</div>
+						<div class="form-group  row" style="margin-bottom:0px;">
+							<input type="text" class="form-control-flexible col-md-3" id="title" value="" placeholder="title">
+							<textarea class="form-control-flexible col-md-6" id="description" placeholder="description"></textarea>
+							<select id="status" class="form-control-flexible col-md-3 ">
+							  <option value="-1">尚無相關紀錄</option>
+							  <option value="1">已通過</option>
+							  <option value="0">未通過</option>
+							</select>
+						</div>
+						<div class="form-group  row ">
+							<textarea class="form-control-flexible col-md-9 " id="log" placeholder="log"></textarea>
+							<input type="text" class="form-control-flexible col-md-3" id="deadline" value="<%=today%>" placeholder="deadline">
+						</div>
+					</div>
+				-->
+			</div>
+
+				<div class="row">
+
+					<button type="submit" class="btn bg-gray btn-primary" id='submit' onclick="newsubmember();">submit</button>
+					<div id="lodingimg" class="circles-to-rhombuses-spinner d-none" style="padding-top: 18px;padding-left: 20px;">
+					  <div class="circle"></div>
+					  <div class="circle"></div>
+					  <div class="circle"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		</div>
+
+		<!---->
+
+
+
+
+
+	</main>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<!--cookie-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+
+	 <!-- local -->
+
+	 <script src="<%=siteroot%>/phdstatic/js/offcanvas.js"></script>
+	 <script src="<%=siteroot%>/phdstatic/js/submembers.js"></script>
+	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
+	 <script type="text/javascript">
+	 		 StepCount = 0 ;
+	 		 function AddStepUnit() {
+				 const StepCountThis = StepCount;
+				 StepCount++;
+				 $('.inputArea').append('<div id="unitInput_'+StepCountThis+'" class="unitInput ">');
+				 $('#unitInput_'+StepCountThis).append('<div id="1_'+StepCountThis+'" class="form-group  row" style="margin-bottom:0px;">');
+				 $('#unitInput_'+StepCountThis).append('<div id="2_'+StepCountThis+'" class="form-group  row" style="margin-bottom:0px;">');
+				 $('#unitInput_'+StepCountThis).append('<div id="3_'+StepCountThis+'" class="form-group  row ">');
+
+				 //<input type="text" class="form-control-flexible col-md-6" id="group"  value="<%=group%>" placeholder="group">
+				 //<input type="text" class="form-control-flexible col-md-6" id="submid" value="<%=group%>" placeholder="submid">
+				 $('#1_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-6 GroupTag" id="group'+StepCountThis+'"  value="<%=group%>" placeholder="group">');
+				 $('#1_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-6 SubmidTag" id="submid'+StepCountThis+'" value="<%=submid%>" placeholder="submid">');
+
+				 /*
+				 <div class="form-group  row" style="margin-bottom:0px;">
+					 <input type="text" class="form-control-flexible col-md-3" id="title" value="" placeholder="title">
+					 <textarea class="form-control-flexible col-md-6" id="description" placeholder="description"></textarea>
+					 <select id="status" class="form-control-flexible col-md-3 ">
+						 <option value="-1">尚無相關紀錄</option>
+						 <option value="1">已通過</option>
+						 <option value="0">未通過</option>
+					 </select>
+				 </div>
+				 <div class="form-group  row ">
+					 <textarea class="form-control-flexible col-md-9 " id="log" placeholder="log"></textarea>
+					 <input type="text" class="form-control-flexible col-md-3" id="deadline" value="<%=today%>" placeholder="deadline">
+				 </div>
+				 */
+				 $('#2_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-3 TitleTag" id="title'+StepCountThis+'" value="" placeholder="title">');
+				 $('#2_'+StepCountThis).append('<textarea class="form-control-flexible col-md-6 DescriptionTag" id="description'+StepCountThis+'" placeholder="description"></textarea>');
+				 $('#2_'+StepCountThis).append('<select id="status'+StepCountThis+'" class="form-control-flexible col-md-3 StatusTag"><option value="-1">尚無相關紀錄</option><option value="1">已通過</option><option value="0">未通過</option></select>');
+
+
+				 $('#3_'+StepCountThis).append('<textarea class="form-control-flexible col-md-9 LogTag" id="log'+StepCountThis+'" placeholder="log"></textarea>');
+				 $('#3_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-3 DeadlineTag" id="deadline'+StepCountThis+'" value="<%=today%>" placeholder="deadline">');
+
+			 }
+			 function newsubmember() {
+				 const StepCountThis = StepCount;
+				 //console.log(StepCountThis);
+				 var NewStepsForCreate=[]
+				 for (i = 0; i < StepCountThis; i++){
+					 //console.log(i);
+					 var unit={};
+					 unit['group'] = $('#group'+i).val()//
+					 unit['submid'] = $('#submid'+i).val();
+					 unit['title'] = $('#title'+i).val();
+					 unit['description'] = $('#description'+i).val();
+					 unit['log'] = $('#log'+i).val();
+					 unit['status'] = $('#status'+i).val();
+					 unit['deadline'] = $('#deadline'+i).val();
+
+					 NewStepsForCreate.push(unit);
+
+				 }
+				 console.log("steps: ",NewStepsForCreate);
+				 //$('#submit').attr('disabled', true);
+				 //$("#lodingimg").removeClass("d-none");
+
+				 $.post("./newstep",
+					 {
+						 "steps":JSON.stringify(NewStepsForCreate),
+
+					 },
+						 function(data, status,body) {
+
+								alert(data);
+								/*
+								if(!data.includes('error')){
+									location.href='<%=siteroot%>/phd/newsubmember?group=<%=group%>&submid='+data;
+								}*/
+
+				  });
+			}
+
+	</script>
+</body>
+
+</html>

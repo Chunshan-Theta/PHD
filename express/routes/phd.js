@@ -47,6 +47,7 @@ router.post('/login', function(req, res) {
         req.session.user[tag]['name']=re['name'];
         req.session.user[tag]['mid']=re['mid'];
         req.session.user[tag]['permission']=re['permission'];
+        req.session.user[tag]['group']=re['group'];
         //res.send(app.siteroot+'/phd/review/'+re['permission']+"/");
         res.send(tag);
 
@@ -62,6 +63,7 @@ router.post('/login', function(req, res) {
 router.get('/review/admin', function(req, res) {
   var tag = req.param('tag', null);
   var mid = req.session.user[tag]['mid'];
+  var group = req.session.user[tag]['group'];
   var permission = req.session.user[tag]['permission'];
   if(permission!='admin'){
     res.redirect(app.siteroot+'/phd/login');
@@ -69,7 +71,7 @@ router.get('/review/admin', function(req, res) {
   api.getsubmember(mid,function(submembers){
 
 
-      res.render('phd/review_admin',{"siteroot":app.siteroot,"submembers":submembers});
+      res.render('phd/review_admin',{"siteroot":app.siteroot,"submembers":submembers,"group":group});
   });
 
 
@@ -106,14 +108,42 @@ router.post('/newsubmember', function(req, res) {
 
 
   api.newsubmember(account,pws,name,entertime,teacher,group,function(pass,content){
-      
+
       if(pass){
-        res.send('business api completed,ID :'+content);
+        res.send(''+content);
       }
       else {
         res.send('error: '+content);
       }
 
   });
+});
+
+
+////
+router.get('/newstep', function(req, res) {
+  var group = req.param('group', null);
+  var submid = req.param('submid', null);
+  var today = new Date().toLocaleDateString();
+  res.render('phd/newstep',{"siteroot":app.siteroot,"group":group,"submid":submid,"today":today});
+});
+
+router.post('/newstep', function(req, res) {
+  var steps = req.param('steps', null)==null?null:JSON.parse(req.param('steps', null));
+  if(steps==null){
+    res.status(400);
+    res.send("end");
+  }
+  var today = new Date().toLocaleDateString();
+  for(var idx in steps){
+    //console.log(steps[idx]);
+    api.NewStep(steps[idx],function(content){
+        console.log(content);
+    });
+    if(idx>=steps.length)res.send("end");
+
+  }
+
+  //res.render('phd/newstep',{"siteroot":app.siteroot,"group":group,"today":today});
 });
 module.exports = router;

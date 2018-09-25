@@ -100,10 +100,10 @@ function inputsubmembers(input_submembers){
 </div>
 */
 function addmembertolist(member){
-  const unitdiv = 'unitdiv_'+member.name;
-  const unitp = 'unitp_'+member.name;
-  const uniticon = 'uniticon_'+member.name;
-  const unitinfo = 'unitinfo_'+member.name;
+  const unitdiv = 'unitdiv_'+member.mid;
+  const unitp = 'unitp_'+member.mid;
+  const uniticon = 'uniticon_'+member.mid;
+  const unitinfo = 'unitinfo_'+member.mid;
   //console.log(member);
   $("#members").append('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
   $("#"+unitdiv).append('<i class="fas fa-user p-3 "></i>');

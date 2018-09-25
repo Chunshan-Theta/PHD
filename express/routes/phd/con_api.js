@@ -67,41 +67,62 @@ module.exports.newsubmember = function (account,pws,name,entertime,teacher,group
     description['入學年'] = entertime;
     description['指導老師']=teacher;
     console.log(account,pws,name,JSON.stringify(description),group);
-    /*
-    request.post("http://localhost:3080/PHD/member",{
+
+    request.post("http://localhost:3080/PHD/member",function(error,response,body){
+      body = JSON.parse(body);
+      if(body['errno']){
+        console.log(body);
+        CallbackFunc(0,body['sqlMessage']);
+      }else {
+        console.log(body);
+        CallbackFunc(1,body['insertId']);
+      }
+
+    }).form({
         "account":account,
         "pws":pws,
         "name":name,
         "group":group,
-        "description":description,
+        "description":JSON.stringify(description),
         "permission":"user",
         "hidden":false,
         "alert":true,
         "mid":"NULL"
-      },function(error,response,body){
-        console.log(response);
-        CallbackFunc('OK');
       });
-      */
-      request.post("http://localhost:3080/PHD/member",function(error,response,body){
-        body = JSON.parse(body);
-        if(body['errno']){
-          console.log(body);
-          CallbackFunc(0,body['sqlMessage']);
-        }else {
-          console.log(body);
-          CallbackFunc(1,body['insertId']);
-        }
-
-      }).form({
-          "account":account,
-          "pws":pws,
-          "name":name,
-          "group":group,
-          "description":JSON.stringify(description),
-          "permission":"user",
-          "hidden":false,
-          "alert":true,
-          "mid":"NULL"
-        });
 }
+
+
+
+module.exports.NewStep = function (step,CallbackFunc){
+    console.log(step);
+    //step = JSON.stringify(step);
+    //console.log(step);
+    request.post("http://localhost:3080/PHD/step",function(error,response,body){
+
+      CallbackFunc(body);
+
+    }).form({
+      "group":step['group'],
+      "submid":step['submid'],
+      "title":step['title'],
+      "description":step['description'],
+      "log":step['log'],
+      "status":step['status'],
+      "deadline":step['deadline'],
+      "sid":"NULL",
+      "adminmid":"NULL"
+    });
+  }
+  /*
+  .form({
+    "group":step['group'],
+    "submid":step['submid'],
+    "title":step['title'],
+    "description":step['description'],
+    "log":step['log'],
+    "status":step['status'],
+    "deadline":step['deadline'],
+    "sid":"NULL",
+    "adminmid":"NULL"
+  })
+  */
