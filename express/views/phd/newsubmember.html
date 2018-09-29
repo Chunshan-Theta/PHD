@@ -18,13 +18,13 @@
 	<link href="<%=siteroot%>/phdstatic/css/offcanvas.css" rel="stylesheet" type="text/css" />
 
 
-	<title>Path to a PHD</title>
+	<title>BACKLOG</title>
 
 </head>
 
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand mr-auto mr-lg-0" href="<%=siteroot%>/phd/">Path to a PHD</a>
+		<a class="navbar-brand mr-auto mr-lg-0" href="<%=siteroot%>/phd/">BACKLOG</a>
 		<button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -79,8 +79,8 @@
 		<div class=" d-flex align-items-center my-3 p-3 rounded">
 			<i class="fas fa-user-graduate p-3 "></i>
       <div class="lh-100">
-        <h6 class="mb-0 lh-100">Bootstrap</h6>
-        <small>Since 2011</small>
+        <h6 class="mb-0 lh-100">僅供網學所學生查閱</h6>
+        <small>Since 2018</small>
       </div>
     </div>
 		<!---->
@@ -184,9 +184,12 @@
 					 },
 						 function(data, status) {
 
-								alert(data);
+
 								if(!data.includes('error')){
+									alert("completed!");
 									location.href='<%=siteroot%>/phd/newstep?group=<%=group%>&submid='+data;
+								}else {
+									alert(data);
 								}
 
 				  });
