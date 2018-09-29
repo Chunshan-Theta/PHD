@@ -114,7 +114,7 @@ router.get('/review/user', function(req, res) {
 
 router.get('/newsubmember', function(req, res) {
   var group = req.param('group', null);
-  var today = new Date().toLocaleDateString();
+  var today = new Date().toISOString();
   res.render('phd/newsubmember',{"siteroot":app.siteroot,"group":group,"today":today});
 });
 router.post('/newsubmember', function(req, res) {
@@ -143,7 +143,7 @@ router.post('/newsubmember', function(req, res) {
 router.get('/newstep', function(req, res) {
   var group = req.param('group', null);
   var submid = req.param('submid', null);
-  var today = new Date().toLocaleDateString();
+  var today = new Date().toISOString();
   res.render('phd/newstep',{"siteroot":app.siteroot,"group":group,"submid":submid,"today":today});
 });
 
@@ -153,7 +153,7 @@ router.post('/newstep', function(req, res) {
     res.status(400);
     res.send("end");
   }
-  var today = new Date().toLocaleDateString();
+  var today = new Date().toISOString();
   for(var idx in steps){
     //console.log(steps[idx]);
     api.NewStep(steps[idx],function(content){
