@@ -113,16 +113,67 @@ module.exports.NewStep = function (step,CallbackFunc){
       "adminmid":"NULL"
     });
   }
-  /*
-  .form({
-    "group":step['group'],
-    "submid":step['submid'],
-    "title":step['title'],
-    "description":step['description'],
-    "log":step['log'],
-    "status":step['status'],
-    "deadline":step['deadline'],
-    "sid":"NULL",
-    "adminmid":"NULL"
-  })
-  */
+module.exports.editStep = function (step,CallbackFunc){
+      console.log(step);
+      //step = JSON.stringify(step);
+      //console.log(step);
+
+      request.put("http://localhost:3080/PHD/step",function(error,response,body){
+
+        CallbackFunc(body);
+
+      }).form({
+        "group":"NULL",
+        "submid":"NULL",
+        "title":step['title'],
+        "description":step['description'],
+        "log":step['log'],
+        "status":step['status'],
+        "deadline":step['deadline'],
+        "sid":step['sid'],
+        "adminmid":"NULL"
+      });
+    }
+
+module.exports.editSubMember = function (memberName,memberId,memberDescription,CallbackFunc){
+  console.log(memberName,memberId,memberDescription);
+  //step = JSON.stringify(step);
+  //console.log(step);
+
+  request.put("http://localhost:3080/PHD/member",function(error,response,body){
+
+    CallbackFunc(body);
+
+  }).form({
+  "hidden": false,
+  "alert": true,
+  "name": memberName,
+  "mid": memberId,
+  "description": JSON.stringify(memberDescription),
+  "permission": "user",
+  "pws": "NULL",
+  "account": "NULL",
+  "group": "NULL"
+});
+}
+module.exports.deleteStep = function (sid,CallbackFunc){
+
+    var link = "http://localhost:3080/PHD/step?sid="+sid;
+    console.log(link);
+    request.delete(link,function(error,response,body){
+
+      CallbackFunc(body);
+
+    });
+}
+
+module.exports.deleteSubMember = function (memberId,CallbackFunc){
+
+  var link = "http://localhost:3080/PHD/member?mid="+memberId;
+  console.log(link);
+  request.delete(link,function(error,response,body){
+
+    CallbackFunc(body);
+
+  });
+}

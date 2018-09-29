@@ -19,9 +19,7 @@
 
 
 	<title>Path to a PHD</title>
-	<style>
-	.adv {visibility: hidden;}
-	</style>
+
 </head>
 
 <body>
@@ -59,7 +57,7 @@
 			</ul>
 
 			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<input class="form-control-flexible mr-sm-2" type="text" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			-->
@@ -87,26 +85,23 @@
     </div>
 		<!---->
 		<!---->
-		<div class="bg-dark login-div ">
+		<div class="bg-dark login-div  ">
 			<div class="panel ">
-				<h2 class="text-white">Login</h2>
-				<p class="text-white">Please enter your account and password</p>
+				<div class="row">
+					<h2 class="text-white col-md-10">step</h2>
+					<!--<button class="btn btn-primary col-md-2 d-none" id='addstepunit' onclick="AddStepUnit();"><i class="fas fa-plus p-0"></i></button>-->
+
+				</div>
+				<p class="text-white">Please enter submember'data</p>
+
 			</div>
 			<div>
+				<div class="inputArea">
+			</div>
 
-				<div class="form-group">
-					<input type="email" id="inputAccount" class="form-control"  value="" placeholder="Account">
-				</div>
+				<div class="row">
 
-				<div class="form-group">
-					<input type="password" class="form-control" id="inputPassword" value="" placeholder="Password">
-				</div>
-				<div class="forgot">
-					<a href="#">Forgot password?</a>
-				</div>
-				<div class="row" style="padding-left: 15px;">
-
-					<button type="submit" class="btn bg-gray btn-primary" id='submit' onclick="login();">Login</button>
+					<button type="submit" class="btn bg-gray btn-primary" id='submit' onclick="editStepStartup();">submit</button>
 					<div id="lodingimg" class="circles-to-rhombuses-spinner d-none" style="padding-top: 18px;padding-left: 20px;">
 					  <div class="circle"></div>
 					  <div class="circle"></div>
@@ -117,7 +112,6 @@
 
 		</div>
 
-		<p class="botto-text"> Designed by Sunil Rajput</p>
 		</div>
 
 		<!---->
@@ -144,43 +138,74 @@
 	 <script src="<%=siteroot%>/phdstatic/js/submembers.js"></script>
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script type="text/javascript">
-	 		$(function() {
-				if($.cookie('UserTag')!='null'&&$.cookie('UserTag')!=null){
-					console.log("$.cookie('UserTag'): ",$.cookie('UserTag'));
-					window.location = '<%=siteroot%>/phd/?tag='+$.cookie('UserTag');
-				}
-			});
+	 		 StepCount = 0 ;
+	 		 function AddStepUnit() {
+				 const StepCountThis = StepCount;
+				 StepCount++;
+				 $('.inputArea').append('<div id="unitInput_'+StepCountThis+'" class="unitInput ">');
+				 $('#unitInput_'+StepCountThis).append('<div id="1_'+StepCountThis+'" class="form-group  row" style="margin-bottom:0px;">');
+				 $('#unitInput_'+StepCountThis).append('<div id="2_'+StepCountThis+'" class="form-group  row" style="margin-bottom:0px;">');
+				 $('#unitInput_'+StepCountThis).append('<div id="3_'+StepCountThis+'" class="form-group  row ">');
+
+				 $('#1_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-6 SubmidTag d-none" id="stepId'+StepCountThis+'" value="<%=stepId%>" placeholder="submid">');
 
 
-			 function login() {
-				 var account = $('#inputAccount').val()//
-				 var pws = $('#inputPassword').val();
-				 $('#submit').attr('disabled', true);
-				 $("#lodingimg").removeClass("d-none");
+				 $('#2_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-3 TitleTag" id="stepTitle'+StepCountThis+'" value="<%=stepTitle%>" placeholder="title">');
+				 $('#2_'+StepCountThis).append('<textarea class="form-control-flexible col-md-6 DescriptionTag" id="stepDescription'+StepCountThis+'" placeholder="description"><%=stepDescription%></textarea>');
+				 if('<%=stepStatus%>'=='1'){
+					 $('#2_'+StepCountThis).append('<select id="stepStatus'+StepCountThis+'" class="form-control-flexible col-md-3 StatusTag"><option value="-1" >尚無相關紀錄</option><option value="1" selected>已通過</option><option value="0">未通過</option></select>');
+				 }else if ('<%=stepStatus%>'=='0') {
+					 $('#2_'+StepCountThis).append('<select id="stepStatus'+StepCountThis+'" class="form-control-flexible col-md-3 StatusTag"><option value="-1" >尚無相關紀錄</option><option value="1">已通過</option><option value="0" selected>未通過</option></select>');
+				 }else {
+				 	 $('#2_'+StepCountThis).append('<select id="stepStatus'+StepCountThis+'" class="form-control-flexible col-md-3 StatusTag"><option value="-1" selected>尚無相關紀錄</option><option value="1">已通過</option><option value="0">未通過</option></select>');
+				 }
 
-				 $.post("./login",
+
+				 $('#3_'+StepCountThis).append('<textarea class="form-control-flexible col-md-9 LogTag" id="stepLog'+StepCountThis+'"   placeholder="log" ><%=stepLog%></textarea>');
+				 $('#3_'+StepCountThis).append('<input type="text" class="form-control-flexible col-md-3 DeadlineTag" id="stepDeadline'+StepCountThis+'" value="<%=stepDeadline%>" placeholder="deadline">');
+
+			 }
+			 function editStepStartup() {
+				 //console.log(StepCountThis);
+					 //console.log(i);
+				 var unit={};
+				 var i = 0;
+				 unit['stepId'] = $('#stepId'+i).val();
+				 unit['stepTitle'] = $('#stepTitle'+i).val();
+				 unit['stepDescription'] = $('#stepDescription'+i).val();
+				 unit['stepLog'] = $('#stepLog'+i).val();
+				 unit['stepStatus'] = $('#stepStatus'+i).val();
+				 unit['stepDeadline'] = $('#stepDeadline'+i).val();
+
+
+
+
+				 console.log("step: ",unit);
+				 //$('#submit').attr('disabled', true);
+				 //$("#lodingimg").removeClass("d-none");
+
+				 $.post("./editstep",
 					 {
-						 "account":account,
-						 "pws":pws
+						 stepId : unit['stepId'],
+						 stepTitle : unit['stepTitle'],
+						 stepDescription :unit['stepDescription'],
+						 stepStatus :unit['stepStatus'],
+						 stepLog :unit['stepLog'],
+						 stepDeadline :unit['stepDeadline']
 
 					 },
-						 function(data, status) {
+						 function(data, status,body) {
 
-								 if(!data.includes('error')){
-									 alert('success');
-									 $.cookie('UserTag',data,{ expires: 1 ,path:'/'});
-									 //location.reload();//
-									 window.location = '<%=siteroot%>/phd/?tag='+data;
-								 }else{
-									 alert(data);
+								alert(data);
 
-								 }
-								 $('#submit').attr('disabled', false);
-								 $("#lodingimg").addClass("d-none");
+								if(!data.includes('error')){
+									location.href='<%=siteroot%>/phd/';
+								}
+
 
 				  });
 			}
-
+			AddStepUnit();
 	</script>
 </body>
 

@@ -19,9 +19,7 @@
 
 
 	<title>Path to a PHD</title>
-	<style>
-	.adv {visibility: hidden;}
-	</style>
+
 </head>
 
 <body>
@@ -87,26 +85,37 @@
     </div>
 		<!---->
 		<!---->
-		<div class="bg-dark login-div ">
+		<div class="bg-dark login-div  ">
 			<div class="panel ">
-				<h2 class="text-white">Login</h2>
-				<p class="text-white">Please enter your account and password</p>
+				<h2 class="text-white">registor</h2>
+				<p class="text-white">Please enter submember'data</p>
 			</div>
 			<div>
 
-				<div class="form-group">
-					<input type="email" id="inputAccount" class="form-control"  value="" placeholder="Account">
+				<div class="form-group row d-none">
+					<p class="text-white col-md-4">name</p>
+					<input type="text" class="form-control col-md-8" id="id" value="<%=memberId%>" placeholder="mid">
+				</div>
+				<div class="form-group row">
+					<p class="text-white col-md-4">name</p>
+					<input type="text" class="form-control col-md-8" id="name" value="<%=memberName%>" placeholder="name">
 				</div>
 
-				<div class="form-group">
-					<input type="password" class="form-control" id="inputPassword" value="" placeholder="Password">
+				<div class="form-group row">
+					<p class="text-white col-md-4">enter time</p>
+					<input type="text" class="form-control col-md-8" id="entertime" value="<%=enterTime%>" placeholder="entertime">
 				</div>
-				<div class="forgot">
-					<a href="#">Forgot password?</a>
+
+				<div class="form-group row">
+					<p class="text-white col-md-4">teacher</p>
+					<input type="text" class="form-control col-md-8" id="teacher" value="<%=memberTeacher%>" placeholder="teacher">
 				</div>
+
+
+
 				<div class="row" style="padding-left: 15px;">
 
-					<button type="submit" class="btn bg-gray btn-primary" id='submit' onclick="login();">Login</button>
+					<button type="submit" class="btn bg-gray btn-primary" id='submit' onclick="editSubMemberStartUp();">submit</button>
 					<div id="lodingimg" class="circles-to-rhombuses-spinner d-none" style="padding-top: 18px;padding-left: 20px;">
 					  <div class="circle"></div>
 					  <div class="circle"></div>
@@ -117,7 +126,6 @@
 
 		</div>
 
-		<p class="botto-text"> Designed by Sunil Rajput</p>
 		</div>
 
 		<!---->
@@ -144,39 +152,30 @@
 	 <script src="<%=siteroot%>/phdstatic/js/submembers.js"></script>
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script type="text/javascript">
-	 		$(function() {
-				if($.cookie('UserTag')!='null'&&$.cookie('UserTag')!=null){
-					console.log("$.cookie('UserTag'): ",$.cookie('UserTag'));
-					window.location = '<%=siteroot%>/phd/?tag='+$.cookie('UserTag');
-				}
-			});
-
-
-			 function login() {
-				 var account = $('#inputAccount').val()//
-				 var pws = $('#inputPassword').val();
-				 $('#submit').attr('disabled', true);
-				 $("#lodingimg").removeClass("d-none");
-
-				 $.post("./login",
+			 function editSubMemberStartUp() {
+				 var name = $('#name').val()//
+				 var entertime = $('#entertime').val();
+				 var teacher = $('#teacher').val();
+				 var mid = $('#id').val();
+				 //$('#submit').attr('disabled', true);
+				 //$("#lodingimg").removeClass("d-none");
+				 var memberDecription={}
+				 memberDecription['入學年']=entertime;
+				 memberDecription['指導教授']=teacher;
+				 $.post("./editsubmember",
 					 {
-						 "account":account,
-						 "pws":pws
+
+						 "memberName":name,
+						 "memberDescription":JSON.stringify(memberDecription),
+						 "memberId":mid
 
 					 },
 						 function(data, status) {
 
-								 if(!data.includes('error')){
-									 alert('success');
-									 $.cookie('UserTag',data,{ expires: 1 ,path:'/'});
-									 //location.reload();//
-									 window.location = '<%=siteroot%>/phd/?tag='+data;
-								 }else{
-									 alert(data);
-
-								 }
-								 $('#submit').attr('disabled', false);
-								 $("#lodingimg").addClass("d-none");
+								alert(data);
+								if(!data.includes('error')){
+									location.href='<%=siteroot%>/phd/';
+								}
 
 				  });
 			}

@@ -51,9 +51,11 @@ module.exports.submembersGET = function submembersGET (req, res, next) {
           for(var idx in re2){
             const stu = re2[idx];
             if(stu["permission"]=="user"){
-              //console.log(stu['mid']);
+              console.log(stu);
               submids.push(stu['mid']);
-              const class_submember = new cd.submember(stu['mid'],stu['name'],stu['group'],stu['permission'],[],stu['hidden'],JSON.stringify(stu['description']));
+              var class_submember = new cd.submember(stu['mid'],stu['name'],stu['group'],stu['permission'],[],stu['hidden'],JSON.stringify(stu['description']),stu['pws'],stu['account']);
+              //class_submember.account=stu['account'];
+              //class_submember.pws=stu['pws'];
               submids_obj[stu['mid']]=class_submember;
             }
             //console.log(submids_obj);

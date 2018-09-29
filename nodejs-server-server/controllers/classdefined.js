@@ -1,5 +1,5 @@
 module.exports.member = class member {
-  constructor(mid,name,group,permission,hidden,description) {
+  constructor(mid,name,group,permission,hidden,description,pws = "deny",account = "deny") {
     this.mid = mid;
     this.name = name;
     this.description = JSON.parse(description);
@@ -7,15 +7,15 @@ module.exports.member = class member {
     this.group = group;
     this.permission = permission;
     this.hidden = hidden;
-    this.pws = "deny";
-    this.account = "deny";
+    this.pws = pws;
+    this.account = account;
 
   }
 }
 
 module.exports.submember = class submember extends this.member {
-  constructor(mid,name,group,permission,steps,hidden,description) {
-    super(mid,name,group,permission,hidden,description);
+  constructor(mid,name,group,permission,steps,hidden,description,pws = "deny",account = "deny") {
+    super(mid,name,group,permission,hidden,description,pws,account);
     this.steps = steps;
     this.alert = null;
 

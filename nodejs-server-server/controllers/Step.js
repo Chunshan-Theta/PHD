@@ -86,7 +86,10 @@ module.exports.catchsteps = function (sid,title,group,submid,adminmid,nextstep){
       for(var idx in returnValue){
         const json_step = returnValue[idx];
         //sid,group,title,deadline,log,status,description,submid,adminmid
-        const class_step = new cd.step(json_step["sid"],json_step["group"],json_step["title"],json_step["deadline"],json_step["log"],json_step["status"],json_step["description"],json_step["submid"],json_step["adminmid"]);
+        var date = new Date(json_step["deadline"]);
+        var dateString = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
+
+        const class_step = new cd.step(json_step["sid"],json_step["group"],json_step["title"],dateString,json_step["log"],json_step["status"],json_step["description"],json_step["submid"],json_step["adminmid"]);
         steplist.push(class_step);
       }
       nextstep(steplist);

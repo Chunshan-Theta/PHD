@@ -24,7 +24,7 @@
 
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand mr-auto mr-lg-0" href="#">Path to a PHD</a>
+		<a class="navbar-brand mr-auto mr-lg-0" href="<%=siteroot%>/phd/">Path to a PHD</a>
 		<button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -169,7 +169,7 @@
 				<h6 class="border-bottom border-gray pb-2 mb-0">
 						<div class="row">
 							<li class="col-md-10" ><p id="chosenmembername">Step List</p></li>
-							<li class="col-md-2"><i id="addstep" class="adv fas fa-plus p-1"></i><i id="editstep" class="adv fas fa-edit p-1"></i></li>
+							<li class="col-md-2"><i id="addstep" class="adv fas fa-plus p-1"></i></li>
 						</div>
 				</h6>
 
@@ -243,9 +243,10 @@
 
 	</main>
 	<!-- Optional JavaScript -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	 crossorigin="anonymous"></script>
+	<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	 crossorigin="anonymous"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
 	 crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -271,6 +272,41 @@
 		function newastep(id){
 		  console.log(id);
 		  location.href='<%=siteroot%>/phd/newstep?group=<%=group%>&submid='+id;
+		}
+		function editTheStep(stepId,stepTitle,stepDescription,stepStatus,stepLog,stepDeadline){
+			stepDescription = stepDescription.replace(/<br>/g,"\n");
+			stepLog = stepLog.replace(/<br>/g,"\n");
+		  //console.log(stepId,stepTitle,stepDescription,stepStatus,stepLog,stepDeadline);
+			location.href='<%=siteroot%>/phd/editstep?stepId='+stepId+'&stepTitle='+stepTitle+'&stepDescription='+stepDescription+'&stepStatus='+stepStatus+'&stepLog='+stepLog+'&stepDeadline='+stepDeadline+'';
+		}
+		function editMember(memberId,memberName,memberDescription){
+			location.href='<%=siteroot%>/phd/editsubmember?memberId='+memberId+'&memberName='+memberName+'&memberDescription='+memberDescription;
+		}
+		function deleteMemberStartUp(text,memberId){
+			//console.log(memberId);
+			if (confirm(text)) {
+    		 $.post("<%=siteroot%>/phd/deleteSubmember",{"memberId":memberId},function(data, status) {
+					 alert(data);
+					 if(!data.includes('error')){
+						 //location.href='<%=siteroot%>/phd/';
+						 location.reload();
+					 }
+				 });
+			}
+
+		}
+
+		function deleteStepStartUp(text,stepId){
+			if (confirm(text)) {
+
+    		 $.post("<%=siteroot%>/phd/deleteStep",{"stepId":stepId},function(data, status) {
+					 alert(data);
+					 if(!data.includes('error')){
+						 //location.href='<%=siteroot%>/phd/';
+						 location.reload();
+					 }
+				 });
+			}
 		}
 
 	 </script>

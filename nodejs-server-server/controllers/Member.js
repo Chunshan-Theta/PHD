@@ -24,7 +24,7 @@ module.exports.memberDELETE = function memberDELETE (req, res, next) {
 function deletemember(mid,nextstep){
 
   const connection = new sql('PHD');
-  var querytext = "DELETE FROM `member` WHERE `member`.`mid` = "+mid;
+  var querytext = "UPDATE `member` SET `hidden` = '1' WHERE `member`.`mid` = "+mid;
 
   connection.query(querytext, function(returnValue) {
       nextstep(returnValue);
@@ -111,11 +111,8 @@ module.exports.catchmembers = function(mid,name,group,permission,nextstep,accoun
       var memberlist=[];
       for(var idx in returnValue){
         const json_member = returnValue[idx];
-        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"]);
-        if(account.length>0){
-          class_member.account = json_member["account"];
-          class_member.pws = json_member["pws"];
-        }
+        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"],json_member["pws"],json_member["account"]);
+
         memberlist.push(class_member);
       }
       nextstep(memberlist);
@@ -184,7 +181,7 @@ module.exports.memberPUT = function memberPUT (req, res, next) {
       var hidden = member["hidden"] == true ? "1": "0";
 
       var thismember = new cd.member(member["mid"],member["name"],member["group"],member["permission"],hidden,member["description"]);
-      thismember.pws = member["pws"];
+      thismember.pws = member["pws"]!="NULL"?member["pws"]:null;
       console.log(thismember);
       updatemember(thismember,function(re){
 
@@ -202,7 +199,11 @@ function updatemember(m,nextstep){
     //INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, 'testB', 'testB', '王君善B', '{"入學年":"2019-02-0A","指導老師":"吳穎沺"}', 'NCU_NLT', 'user', '0');
     const connection = new sql('PHD');
     //console.log(object);
-    var querytext = 'UPDATE `member` SET `pws`="'+m.pws+'",`name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\' WHERE `member`.`mid` = '+m.mid+';'
+    if(m.pws!=null){
+      var querytext = 'UPDATE `member` SET `pws`="'+m.pws+'",`name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\' WHERE `member`.`mid` = '+m.mid+';'
+    }else {
+      var querytext = 'UPDATE `member` SET `name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\' WHERE `member`.`mid` = '+m.mid+';'
+    }
     console.log(querytext);
 
     connection.query(querytext, function(returnValue) {

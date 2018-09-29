@@ -40,9 +40,12 @@
 	 <script src="<%=siteroot%>/phdstatic/js/submembers.js"></script>
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script>
-	  $.cookie('UserTag',null,{ path:'/'});
+	  $(function(){
+			$.cookie('UserTag',null,{ path:'/'});
 
-	 	location.href='<%=siteroot%>/phd/';
+		 	location.href='<%=siteroot%>/phd/';
+		});
+
 	 </script>
 </body>
 
