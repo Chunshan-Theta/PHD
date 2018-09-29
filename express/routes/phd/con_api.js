@@ -65,7 +65,7 @@ module.exports.newsubmember = function (account,pws,name,entertime,teacher,group
 
     var description={};
     description['入學年'] = entertime;
-    description['指導老師']=teacher;
+    description['指導教授']=teacher;
     console.log(account,pws,name,JSON.stringify(description),group);
 
     request.post("http://localhost:3080/PHD/member",function(error,response,body){
