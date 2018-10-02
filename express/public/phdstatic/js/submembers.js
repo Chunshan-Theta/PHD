@@ -106,9 +106,9 @@ function addmembertolist(member){
   const unitinfo = 'unitinfo_'+member.mid;
   //console.log(member);
   if(!member.hidden){
-    $("#members").append('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
+    $("#members").prepend('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
   }else{
-    $("#members").append('<div id="'+unitdiv+'" class="d-none media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
+    $("#members").prepend('<div id="'+unitdiv+'" class="d-none media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
   }
 
   $("#"+unitdiv).append('<i class="adv fas fa-edit p-3" onclick=\'editMember("'+member.mid+'","'+member.name+'","'+JSON.stringify(member.description).replace(/"/g,"\\\"")+'");\'></i>');

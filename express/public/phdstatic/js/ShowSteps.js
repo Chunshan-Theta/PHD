@@ -32,6 +32,7 @@ function showsteps(name){
   for(var idx in m.steps){
     addasteptodiv(m.steps[idx]);
   }
+  window.scrollTo(0, 0);
 
 }
 function addasteptodiv(step){
@@ -43,14 +44,14 @@ function addasteptodiv(step){
   $("#"+containername).append('<div id="'+containerinfo+'" class="media text-muted pt-3 row btn btn-default likebutton" onclick="showlog(\''+containerlog+'\')">');
   $("#"+containername).append('<div id="'+containerlog+'" class="pt-3 p-3 bg-lightgray d-none ">');
 
-  $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1 text-in-div">'+step.title+' </div>');
-  $("#"+containerinfo).append('<div class="col-md-6 p-3 my-1 text-in-div">'+step.description+'</div>');
+  $("#"+containerinfo).append('<div class="col-md-3 p-3 my-1 text-in-div">'+step.title+' </div>');
+  $("#"+containerinfo).append('<div class="col-md-5 p-3 my-1 text-in-div">'+step.description+'</div>');
   if(step.status == true){
-    $("#"+containerinfo).append('<div class="col-md-2 p-3 my-1"><i class="fas fa-check text-green"></i></div>');
+    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-check text-green text-center"><br>completed!<br></i></div>');
   }else if (step.status == false) {
-    $("#"+containerinfo).append('<div class="col-md-2 p-3 my-1"><i class="fas fa-times text-red"></i></div>');
+    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-times text-red text-center"><br>fail!<br></i></div>');
   }else{
-    $("#"+containerinfo).append('<div class="col-md-2 p-3 my-1"><i class="fas fa-question-circle text-gray"></i></div>');
+    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-question-circle text-red text-center"><br>completed before<br>'+step.deadline+'</i></div>');
   }
     //$("#"+containerinfo).append('<div class="col-md-1 p-3 my-1"><i class="fas fa-arrow-down text-gray"></i></div>');
 

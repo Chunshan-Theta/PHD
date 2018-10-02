@@ -106,12 +106,11 @@ function addmembertolist(member){
   const unitinfo = 'unitinfo_'+member.mid;
   //console.log(member);
   if(!member.hidden){
-    $("#members").append('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
+    $("#members").prepend('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
   }else{
-    $("#members").append('<div id="'+unitdiv+'" class="d-none media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
+    $("#members").prepend('<div id="'+unitdiv+'" class="d-none media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
   }
 
-  $("#"+unitdiv).append('<i class=" fas fa-user p-3");\'></i>');
   $("#"+unitdiv).append('<p id="'+unitp+'" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">');
   $("#"+unitp).append('<strong id="'+uniticon+'" class="d-block text-right">');
   $("#"+uniticon).append('<i class="fas fa-exclamation p-1 text-red d-none"></i>');
