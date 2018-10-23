@@ -78,6 +78,7 @@ module.exports.catchsteps = function (sid,title,group,submid,adminmid,nextstep){
   for(var idx in adminmid){
     querytext+= "OR `adminmid`= '"+adminmid[idx]+"'";
   }
+  querytext+=' ORDER BY `step`.`indexStep` DESC';
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
