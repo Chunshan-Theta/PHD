@@ -4,7 +4,6 @@
       <div class="col-md-4 p-3 my-1">Final Exam </div>
       <div class="col-md-6 p-3 my-1">has two chance. you need passing the exam before graduation.</div>
       <div class="col-md-2 p-3 my-1"><i class="fas fa-check text-green"></i></div>
-
     </div>
     <div class="pt-3 p-3 bg-lightgray ">
         <li class="text-right "><i class="fas pl-3 fa-edit" title="編輯"></i></li>
@@ -23,7 +22,8 @@ function showsteps(name){
   //$("#addstep").addClass("xzc");
 
   $("#stepslistcontent").remove();
-  const m = JSON.parse($.cookie(name));
+  const m = JSON.parse(MemberListDetailData[name]);
+  console.log(m);
   $("#addstep").attr("onclick",'newastep(\''+m.mid+'\');');
 
   $("#stepslist").append('<div id="stepslistcontent">');
@@ -51,10 +51,11 @@ function addasteptodiv(step){
   }else if (step.status == false) {
     $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-times text-red text-center"><br>fail!<br></i></div>');
   }else{
-    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-question-circle text-red text-center"><br>completed before<br>'+step.deadline+'</i></div>');
+    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-question-circle text-red text-center"></i></div>');
   }
     //$("#"+containerinfo).append('<div class="col-md-1 p-3 my-1"><i class="fas fa-arrow-down text-gray"></i></div>');
 
+  //$("#"+containerlog).append('<li class="text-right adv"><i class="fas pl-3 fa-edit adv" title="編輯" onclick=\'editTheStep(\"'+step.sid+'\",\"'+step.title+'\",\"'+step.description+'\",\"'+step.status+'\",\"'+step.log+'\",\"'+step.deadline+'\");\'></i><i class="fas pl-3 fa-times adv" title="刪除" onclick="deleteStepStartUp(\'你想要刪除任務： '+step.title+' 嗎？\',\''+step.sid+'\');"></i></li>');
   $("#"+containerlog).append('<li class="text-in-div">'+step.log+'</li>');
   $("#"+containerlog).append('<li class="text-right text-gray">deadline:'+step.deadline+'</li>');
 

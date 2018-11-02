@@ -18,6 +18,7 @@ router.get('/', function(req, res) {
     // server restart
     // user login license time out.
     console.log("!req.session.user[tag]");
+    console.log(req.session.user);
     res.redirect(app.siteroot+'/phd/logout');
   }
   else{
@@ -64,8 +65,12 @@ router.post('/login', function(req, res) {
         req.session.user[tag]={};
         //office
         
-        
-        req.session.user[tag]['homepage']=app.siteroot+'/phd/review/'+re['permission']+"/";
+        if(re['permission']=='admin'){
+          req.session.user[tag]['homepage']=app.siteroot+'/phd/review/admin2/?tag='+tag;
+        }else{
+          req.session.user[tag]['homepage']=app.siteroot+'/phd/review/'+re['permission']+"/?tag="+tag;
+
+        }
         
         
         req.session.user[tag]['name']=re['name'];
@@ -73,10 +78,10 @@ router.post('/login', function(req, res) {
         req.session.user[tag]['permission']=re['permission'];
         req.session.user[tag]['group']=re['group'];
         //res.send(app.siteroot+'/phd/review/'+re['permission']+"/");
-        res.send(req.session.user[tag]['homepage']+'?tag='+tag);
+        res.send({"tag":tag,"home":req.session.user[tag]['homepage']});
 
       }else{
-        res.send("error: "+re);
+        res.send({"tag":"error: "+re});
       }
   });
 
@@ -84,15 +89,15 @@ router.post('/login', function(req, res) {
 
   //res.render('phd/login',{"siteroot":app.siteroot});
 });
-/*
-router.get('/review/admin/', function(req, res) {
-  console.log("into page: /review/admin");
+
+router.get('/review/admin2/', function(req, res) {
+  console.log("into page: /review/admin2");
 
   var tag = req.param('tag', null);
   
   console.log(tag);
   if(!req.session.user || !req.session.user[tag]){
-    res.redirect(app.siteroot+'/phd/login');
+    res.redirect(app.siteroot+'/phd/logout');
   }else {
     //console.log(tag);
     //console.log(req.session.user);
@@ -109,23 +114,24 @@ router.get('/review/admin/', function(req, res) {
     });
   }
   
-  res.send("error: "+tag);
+  //res.send("error: "+tag);
 });
-*/
 
-router.get('/review/admin/', function(req, res) {
-  res.send('hi');
-});
 
 router.get('/review/user/', function(req, res) {
     var tag = req.param('tag', null);
-    var mid = req.session.user[tag]['mid'];
-    //console.log(req.session.user['homepage']);
-    api.getyours(mid,function(submembers){
+    if(!req.session.user || !req.session.user[tag]){
+      res.redirect(app.siteroot+'/phd/logout');
+    }else{
+      var mid = req.session.user[tag]['mid'];
+      //console.log(req.session.user['homepage']);
+      api.getyours(mid,function(submembers){
 
 
         res.render('phd/review_user',{"siteroot":app.siteroot,"submembers":submembers});
     });
+    }
+    
 
 
 });
@@ -239,6 +245,8 @@ router.post('/editstep', function(req, res) {
 router.get('/editsubmember', function(req, res) {
   var memberName = req.param('memberName', null);
   var memberId = req.param('memberId', null);
+  var memberAccount = req.param('memberAccount', null);
+  var memberPassword = req.param('memberPassword', null);
   var memberDescription = req.param('memberDescription', null)==null?null:JSON.parse(req.param('memberDescription', null));
   console.log(memberDescription);
   /*
@@ -249,22 +257,25 @@ router.get('/editsubmember', function(req, res) {
   var stepLog = '123';
   var stepDeadline = '2018-09-28';
   */
-  res.render('phd/editsubmember',{"siteroot":app.siteroot,"memberId":memberId,"memberName":memberName,"enterTime":memberDescription["入學年"],"memberTeacher":memberDescription["指導教授"]});
+  res.render('phd/editsubmember',{"siteroot":app.siteroot,"memberAccount":memberAccount,"memberPassword":memberPassword,"memberId":memberId,"memberName":memberName,"enterTime":memberDescription["入學年"],"memberTeacher":memberDescription["指導教授"]});
 });
 
 router.post('/editsubmember', function(req, res) {
+  var memberAccount = req.param('memberAccount', null);
+  var memberPassword = req.param('memberPassword', null);
   var memberName = req.param('memberName', null);
   var memberId = req.param('memberId', null);
   var memberDescription = req.param('memberDescription', null)==null?null:JSON.parse(req.param('memberDescription', null));
   console.log("memberDescription: ",memberDescription);
   console.log("memberName: ",memberName);
   console.log("memberId: ",memberId);
-  api.editSubMember(memberName,memberId,memberDescription,function(content){
+  api.editSubMember(memberAccount,memberPassword,memberName,memberId,memberDescription,function(content){
       console.log(content);
       content = JSON.parse(content);
       if(!content['errno']){
         res.send("completed!");
       } else{
+        console.log(content['errno']);
         res.send("typing error");
       }
 

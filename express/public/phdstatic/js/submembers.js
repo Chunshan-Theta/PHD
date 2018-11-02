@@ -65,13 +65,18 @@ var member3 = new member("m3","Theta","NCU-NLT","user",[step1_3,step2,step3],fal
 var Demosubmembers= {
   "members": [member1,member2,member3]
 };
+
+MemberListDetailData={};
+
 //inputsubmembers(Demosubmembers);
 function inputsubmembers(input_submembers){
   for(var idx in input_submembers["members"]){
     const m = input_submembers["members"][idx];
-    $.cookie(m.name, JSON.stringify(m), { expires: 1 });
+    //$.cookie(m.name, JSON.stringify(m), { expires: 1 ,path:'/'});
+    MemberListDetailData[m.name]=JSON.stringify(m);
     addmembertolist(m);
   }
+  //console.log(MemberListDetailData);
 }
 
 
@@ -111,7 +116,7 @@ function addmembertolist(member){
     $("#members").prepend('<div id="'+unitdiv+'" class="d-none media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
   }
 
-  $("#"+unitdiv).append('<i class="adv fas fa-edit p-3" onclick=\'editMember("'+member.mid+'","'+member.name+'","'+JSON.stringify(member.description).replace(/"/g,"\\\"")+'");\'></i>');
+  $("#"+unitdiv).append('<i class="adv fas fa-edit p-3" onclick=\'editMember("'+member.mid+'","'+member.name+'","'+JSON.stringify(member.description).replace(/"/g,"\\\"")+'","'+member.account+'","'+member.pws+'");\'></i>');
   $("#"+unitdiv).append('<p id="'+unitp+'" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">');
   $("#"+unitp).append('<strong id="'+uniticon+'" class="d-block text-right">');
   $("#"+uniticon).append('<i class="fas fa-exclamation p-1 text-red d-none"></i>');

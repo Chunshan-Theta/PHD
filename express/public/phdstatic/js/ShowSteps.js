@@ -4,7 +4,6 @@
       <div class="col-md-4 p-3 my-1">Final Exam </div>
       <div class="col-md-6 p-3 my-1">has two chance. you need passing the exam before graduation.</div>
       <div class="col-md-2 p-3 my-1"><i class="fas fa-check text-green"></i></div>
-
     </div>
     <div class="pt-3 p-3 bg-lightgray ">
         <li class="text-right "><i class="fas pl-3 fa-edit" title="編輯"></i></li>
@@ -23,7 +22,8 @@ function showsteps(name){
   //$("#addstep").addClass("xzc");
 
   $("#stepslistcontent").remove();
-  const m = JSON.parse($.cookie(name));
+  const m = JSON.parse(MemberListDetailData[name]);
+  console.log(m);
   $("#addstep").attr("onclick",'newastep(\''+m.mid+'\');');
 
   $("#stepslist").append('<div id="stepslistcontent">');
@@ -51,7 +51,7 @@ function addasteptodiv(step){
   }else if (step.status == false) {
     $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-times text-red text-center"><br>fail!<br></i></div>');
   }else{
-    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-question-circle text-red text-center"><br>completed before<br>'+step.deadline+'</i></div>');
+    $("#"+containerinfo).append('<div class="col-md-4 p-3 my-1"><i class="fas fa-question-circle text-red text-center"></i></div>');
   }
     //$("#"+containerinfo).append('<div class="col-md-1 p-3 my-1"><i class="fas fa-arrow-down text-gray"></i></div>');
 

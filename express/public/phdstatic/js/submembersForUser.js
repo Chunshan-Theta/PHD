@@ -65,13 +65,18 @@ var member3 = new member("m3","Theta","NCU-NLT","user",[step1_3,step2,step3],fal
 var Demosubmembers= {
   "members": [member1,member2,member3]
 };
+
+MemberListDetailData={};
+
 //inputsubmembers(Demosubmembers);
 function inputsubmembers(input_submembers){
   for(var idx in input_submembers["members"]){
     const m = input_submembers["members"][idx];
-    $.cookie(m.name, JSON.stringify(m), { expires: 1 });
+    //$.cookie(m.name, JSON.stringify(m), { expires: 1 ,path:'/'});
+    MemberListDetailData[m.name]=JSON.stringify(m);
     addmembertolist(m);
   }
+  //console.log(MemberListDetailData);
 }
 
 
@@ -104,16 +109,17 @@ function addmembertolist(member){
   const unitp = 'unitp_'+member.mid;
   const uniticon = 'uniticon_'+member.mid;
   const unitinfo = 'unitinfo_'+member.mid;
-  //console.log(member);
-  if(!member.hidden){
-    $("#members").prepend('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
-  }else{
-    $("#members").prepend('<div id="'+unitdiv+'" class="d-none media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
-  }
+  console.log(member);
+  
+  $("#members").prepend('<div id="'+unitdiv+'" class="media align-items-center text-muted pt-3 likebutton btn btn-default" onclick="showsteps(\''+member.name+'\')">');
+  
 
+  //$("#"+unitdiv).append('<i class="adv fas fa-edit p-3" onclick=\'editMember("'+member.mid+'","'+member.name+'","'+JSON.stringify(member.description).replace(/"/g,"\\\"")+'");\'></i>');
   $("#"+unitdiv).append('<p id="'+unitp+'" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">');
   $("#"+unitp).append('<strong id="'+uniticon+'" class="d-block text-right">');
   $("#"+uniticon).append('<i class="fas fa-exclamation p-1 text-red d-none"></i>');
+  //$("#"+uniticon).append('<i class="adv fas fa-edit p-1"></i>');
+  //$("#"+uniticon).append('<i class="adv fas fa-times p-1 " onclick="deleteMemberStartUp(\'你想要刪除成員： '+member.name+' 嗎？\',\''+member.mid+'\');"></i>');
   $("#"+uniticon).append('<i class=" fas fa-arrow-right p-1"></i>');
   $("#"+unitp).append('<strong class="d-block text-black text-left">'+member.name+'</strong>');
   $("#"+unitp).append('<div id="'+unitinfo+'" class="d-block text-black text-left">');
@@ -121,7 +127,8 @@ function addmembertolist(member){
   //$("#"+unitinfo).append('入學年:2018<br/>');
   //$("#"+unitinfo).append('學號：106524018<br/>');
   //$("#"+unitinfo).append('聯絡方式：DemoStudent@mail.com<br/>');
-
+  //$("#"+unitinfo).append('<p class="adv my-0">account : '+member.account+'</p>');
+  //$("#"+unitinfo).append('<p class="adv my-0">pws : '+member.pws+'</p>');
   for (var key in member.description){
     //console.log(key);
     $("#"+unitinfo).append(key+' : '+member.description[key]+'<br/>');

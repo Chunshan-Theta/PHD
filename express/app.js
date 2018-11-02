@@ -19,13 +19,13 @@ app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 /* 设置模板文件文件夹,__dirname为全局变量,表示网站根目录 */
 app.set('views', __dirname + '/views');
-app.set('env','development');
 
 
-app.use(favicon());
+
+//app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -36,8 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'catandmorecats', // 建议使用 128 个字符的随机字符串
   saveUninitialized: true,
-  resave: false,
-  cookie: { maxAge: 5 * 60 * 1000 } //5 min
+  resave: false
+  //cookie: { maxAge: 5 * 60 * 1000 } //5 min
 }));
 
 

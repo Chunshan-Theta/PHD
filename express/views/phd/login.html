@@ -145,14 +145,22 @@
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script type="text/javascript">
 	 		$(function() {
-				if($.cookie('UserTag')!='null'&&$.cookie('UserTag')!=null){
+
+				if($.cookie('UserTag')!='null'&&$.cookie('UserTag')!=null&&$.cookie('UserHome')!=null&&$.cookie('UserHome')!=null){
+					//$.cookie.raw = true;
 					console.log("$.cookie('UserTag'): ",$.cookie('UserTag'));
-					window.location = '<%=siteroot%>/phd/?tag='+$.cookie('UserTag');
+					console.log("$.cookie('UserHome'): ",$.cookie('UserHome'));
+					window.location = $.cookie('UserHome');
+					//alert('<%=siteroot%>/phd/?tag='+$.cookie('UserTag'));
 				}
+				
+				
 			});
 
 
+			
 			 function login() {
+
 				 var account = $('#inputAccount').val()//
 				 var pws = $('#inputPassword').val();
 				 $('#submit').attr('disabled', true);
@@ -166,13 +174,15 @@
 					 },
 						 function(data, status) {
 
-								 if(!data.includes('error')){
+								 if(!data['tag'].includes('error')){
 									 alert('success');
-									 $.cookie('UserTag',data,{ expires: 1 ,path:'/'});
-									 //location.reload();//
-									 window.location = data;
+									 //alert(data['home']);
+									 $.cookie('UserTag',data['tag'],{ expires: 1 ,path:'/'});
+									 $.cookie('UserHome',data['home'],{ expires: 1 ,path:'/'});
+									 
+									 window.location.replace(data['home']);
 								 }else{
-									 alert(data);
+									 alert(data['tag']);
 
 								 }
 								 $('#submit').attr('disabled', false);

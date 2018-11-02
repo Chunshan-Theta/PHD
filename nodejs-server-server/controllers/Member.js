@@ -182,6 +182,7 @@ module.exports.memberPUT = function memberPUT (req, res, next) {
 
       var thismember = new cd.member(member["mid"],member["name"],member["group"],member["permission"],hidden,member["description"]);
       thismember.pws = member["pws"]!="NULL"?member["pws"]:null;
+      thismember.account = member["account"]!="NULL"?member["account"]:null;
       console.log(thismember);
       updatemember(thismember,function(re){
 
@@ -199,11 +200,15 @@ function updatemember(m,nextstep){
     //INSERT INTO `member` (`mid`, `account`, `pws`, `name`, `description`, `group`, `permission`, `hidden`) VALUES (NULL, 'testB', 'testB', '王君善B', '{"入學年":"2019-02-0A","指導老師":"吳穎沺"}', 'NCU_NLT', 'user', '0');
     const connection = new sql('PHD');
     //console.log(object);
+    var querytext = 'UPDATE `member` SET `name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\'';
     if(m.pws!=null){
-      var querytext = 'UPDATE `member` SET `pws`="'+m.pws+'",`name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\' WHERE `member`.`mid` = '+m.mid+';'
-    }else {
-      var querytext = 'UPDATE `member` SET `name`="'+m.name+'",`permission` = "'+m.permission+'",`hidden` = "'+m.hidden+'",`description` = \''+m.description_str+'\' WHERE `member`.`mid` = '+m.mid+';'
+      querytext += ', `pws`="'+m.pws+'"';
     }
+    if(m.account!=null){
+      querytext += ', `account`="'+m.account+'"';
+    }
+
+    querytext+=' WHERE `member`.`mid` = '+m.mid+';'
     console.log(querytext);
 
     connection.query(querytext, function(returnValue) {

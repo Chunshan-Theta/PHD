@@ -280,8 +280,8 @@
 		  //console.log(stepId,stepTitle,stepDescription,stepStatus,stepLog,stepDeadline);
 			location.href='<%=siteroot%>/phd/editstep?stepId='+stepId+'&stepTitle='+stepTitle+'&stepDescription='+stepDescription+'&stepStatus='+stepStatus+'&stepLog='+stepLog+'&stepDeadline='+stepDeadline+'';
 		}
-		function editMember(memberId,memberName,memberDescription){
-			location.href='<%=siteroot%>/phd/editsubmember?memberId='+memberId+'&memberName='+memberName+'&memberDescription='+memberDescription;
+		function editMember(memberId,memberName,memberDescription,memberAccount,memberPassword){
+			location.href='<%=siteroot%>/phd/editsubmember?memberId='+memberId+'&memberName='+memberName+'&memberDescription='+memberDescription+'&memberAccount='+memberAccount+'&memberPassword='+memberPassword;
 		}
 		function deleteMemberStartUp(text,memberId){
 			//console.log(memberId);

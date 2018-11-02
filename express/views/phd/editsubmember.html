@@ -110,6 +110,14 @@
 					<p class="text-white col-md-4">teacher</p>
 					<input type="text" class="form-control col-md-8" id="teacher" value="<%=memberTeacher%>" placeholder="teacher">
 				</div>
+				<div class="form-group row">
+					<p class="text-white col-md-4">Account</p>
+					<input type="text" class="form-control col-md-8" id="account" value="<%=memberAccount%>" placeholder="account">
+				</div>
+				<div class="form-group row">
+					<p class="text-white col-md-4">Password</p>
+					<input type="text" class="form-control col-md-8" id="password" value="<%=memberPassword%>" placeholder="password">
+				</div>
 
 
 
@@ -157,6 +165,8 @@
 				 var entertime = $('#entertime').val();
 				 var teacher = $('#teacher').val();
 				 var mid = $('#id').val();
+				 var password = $('#password').val();
+				 var account = $('#account').val();
 				 //$('#submit').attr('disabled', true);
 				 //$("#lodingimg").removeClass("d-none");
 				 var memberDecription={}
@@ -167,7 +177,9 @@
 
 						 "memberName":name,
 						 "memberDescription":JSON.stringify(memberDecription),
-						 "memberId":mid
+						 "memberId":mid,
+						 "memberPassword":password,
+						 "memberAccount":account
 
 					 },
 						 function(data, status) {

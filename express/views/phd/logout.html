@@ -41,7 +41,13 @@
 	 <script src="<%=siteroot%>/phdstatic/js/ShowSteps.js"></script>
 	 <script>
 	  $(function(){
+	  	
 			$.cookie('UserTag',null,{ path:'/'});
+			var cookies = $.cookie();
+			for(var cookie in cookies) {
+			   $.removeCookie(cookie);
+			}
+			$.cookie.raw = true;
 
 		 	location.href='<%=siteroot%>/phd/';
 		});

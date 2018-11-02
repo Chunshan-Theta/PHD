@@ -135,7 +135,7 @@ module.exports.editStep = function (step,CallbackFunc){
       });
     }
 
-module.exports.editSubMember = function (memberName,memberId,memberDescription,CallbackFunc){
+module.exports.editSubMember = function (memberAccount,memberPassword,memberName,memberId,memberDescription,CallbackFunc){
   console.log(memberName,memberId,memberDescription);
   //step = JSON.stringify(step);
   //console.log(step);
@@ -151,8 +151,8 @@ module.exports.editSubMember = function (memberName,memberId,memberDescription,C
   "mid": memberId,
   "description": JSON.stringify(memberDescription),
   "permission": "user",
-  "pws": "NULL",
-  "account": "NULL",
+  "pws": memberPassword,
+  "account": memberAccount,
   "group": "NULL"
 });
 }
