@@ -22,8 +22,13 @@ router.get('/', function(req, res) {
   }
   else{
     // The user logined.
+    console.log('./ , passed');
     console.log(req.session.user[tag]['name']);
-    res.redirect(req.session.user[tag]['homepage']+'?tag='+tag);
+    var url = req.session.user[tag]['homepage']+'?tag='+tag;
+    console.log(url);
+    res.redirect(url);
+    //res.redirect("https://www.google.com");
+
   }
 
 });
@@ -57,13 +62,18 @@ router.post('/login', function(req, res) {
         //console.log(ip);
         const tag = md5(re['mid']+re['name']+Date.now());
         req.session.user[tag]={};
+        //office
+        
+        
         req.session.user[tag]['homepage']=app.siteroot+'/phd/review/'+re['permission']+"/";
+        
+        
         req.session.user[tag]['name']=re['name'];
         req.session.user[tag]['mid']=re['mid'];
         req.session.user[tag]['permission']=re['permission'];
         req.session.user[tag]['group']=re['group'];
         //res.send(app.siteroot+'/phd/review/'+re['permission']+"/");
-        res.send(tag);
+        res.send(req.session.user[tag]['homepage']+'?tag='+tag);
 
       }else{
         res.send("error: "+re);
@@ -74,11 +84,18 @@ router.post('/login', function(req, res) {
 
   //res.render('phd/login',{"siteroot":app.siteroot});
 });
-router.get('/review/admin', function(req, res) {
+/*
+router.get('/review/admin/', function(req, res) {
+  console.log("into page: /review/admin");
+
   var tag = req.param('tag', null);
+  
+  console.log(tag);
   if(!req.session.user || !req.session.user[tag]){
     res.redirect(app.siteroot+'/phd/login');
   }else {
+    //console.log(tag);
+    //console.log(req.session.user);
     var mid = req.session.user[tag]['mid'];
     var group = req.session.user[tag]['group'];
     var permission = req.session.user[tag]['permission'];
@@ -91,12 +108,16 @@ router.get('/review/admin', function(req, res) {
         res.render('phd/review_admin',{"siteroot":app.siteroot,"submembers":submembers,"group":group});
     });
   }
+  
+  res.send("error: "+tag);
+});
+*/
 
-
-
+router.get('/review/admin/', function(req, res) {
+  res.send('hi');
 });
 
-router.get('/review/user', function(req, res) {
+router.get('/review/user/', function(req, res) {
     var tag = req.param('tag', null);
     var mid = req.session.user[tag]['mid'];
     //console.log(req.session.user['homepage']);

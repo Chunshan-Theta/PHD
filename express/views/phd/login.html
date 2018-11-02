@@ -170,7 +170,7 @@
 									 alert('success');
 									 $.cookie('UserTag',data,{ expires: 1 ,path:'/'});
 									 //location.reload();//
-									 window.location = '<%=siteroot%>/phd/?tag='+data;
+									 window.location = data;
 								 }else{
 									 alert(data);
 

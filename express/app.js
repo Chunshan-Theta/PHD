@@ -19,7 +19,7 @@ app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 /* 设置模板文件文件夹,__dirname为全局变量,表示网站根目录 */
 app.set('views', __dirname + '/views');
-
+app.set('env','development');
 
 
 app.use(favicon());
@@ -35,7 +35,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: 'catandmorecats', // 建议使用 128 个字符的随机字符串
-  cookie: { maxAge: 12 * 60 * 60 * 1000 }
+  saveUninitialized: true,
+  resave: false,
+  cookie: { maxAge: 5 * 60 * 1000 } //5 min
 }));
 
 
