@@ -24,6 +24,7 @@ function showsteps(name){
   $("#stepslistcontent").remove();
   const m = JSON.parse(MemberListDetailData[name]);
   console.log(m);
+  $("#chosenmembername").html("Step List: "+name);
   $("#addstep").attr("onclick",'newastep(\''+m.mid+'\');');
 
   $("#stepslist").append('<div id="stepslistcontent">');
