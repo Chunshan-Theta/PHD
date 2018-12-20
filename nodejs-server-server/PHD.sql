@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 20, 2018 at 09:26 PM
+-- Generation Time: Dec 20, 2018 at 10:22 PM
 -- Server version: 5.7.24-0ubuntu0.16.04.1
 -- PHP Version: 7.0.32-0ubuntu0.16.04.1
 
@@ -48,14 +48,14 @@ CREATE TABLE `member` (
 CREATE TABLE `step` (
   `sid` int(11) NOT NULL,
   `group` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `deadline` date NOT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `submid` int(11) NOT NULL,
   `adminmid` int(11) DEFAULT NULL,
-  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `log` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `indexStep` int(11) NOT NULL DEFAULT '0'
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `log` text COLLATE utf8mb4_unicode_ci,
+  `indexStep` int(11) NOT NULL DEFAULT '99'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -89,7 +89,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `step`
 --
 ALTER TABLE `step`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- Constraints for dumped tables
 --

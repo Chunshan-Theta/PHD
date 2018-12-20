@@ -78,7 +78,7 @@ module.exports.catchsteps = function (sid,title,group,submid,adminmid,nextstep){
   for(var idx in adminmid){
     querytext+= "OR `adminmid`= '"+adminmid[idx]+"'";
   }
-  querytext+=' ORDER BY `step`.`indexStep` DESC';
+  querytext+=' ORDER BY `step`.`indexStep` ASC';
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
@@ -139,11 +139,26 @@ module.exports.stepPOST = function stepPOST (req, res, next) {
 
 function newstep(sid, group, title, deadline, status, submid, adminmid, description, log,nextstep){
 
+  console.log(sid);
   const connection = new sql('PHD');
   status = status != -1 ? status:null;
   sid = sid != "NULL" ? sid:null;
   adminmid = adminmid != "NULL" ? adminmid:null;
-  var querytext = "INSERT INTO `step` (`sid`, `group`, `title`, `deadline`, `status`, `submid`, `adminmid`, `description`, `log`) VALUES (NULL, '"+group+"', '"+title+"', '"+deadline+"', "+status+", '"+submid+"', "+adminmid+", '"+description+"', '"+log+"');";
+  var order_c = ["資格考第一階段","資格考第二階段","英文考試","計畫書口試","著作審查","預備口試","畢業口試"];
+  var order_e = ["The first stage of the qualifying exam","Second stage of qualifying examination","English test","Proposal oral examination","Publications review","Preparatory oral examination","Graduation oral examination"];
+
+  var indexStep = "99";
+
+
+  
+  if(order_c.indexOf(title)!=-1){
+    indexStep =order_c.indexOf(title);
+  }
+  if(order_e.indexOf(title)!=-1){
+    indexStep =order_e.indexOf(title);
+  }
+  
+  var querytext = "INSERT INTO `step` (`sid`, `group`, `title`, `deadline`, `status`, `submid`, `adminmid`, `description`, `log`,`indexStep`) VALUES (NULL, '"+group+"', '"+title+"', '"+deadline+"', "+status+", '"+submid+"', "+adminmid+", '"+description+"', '"+log+"','"+indexStep+"');";
 
   console.log(querytext);
 
