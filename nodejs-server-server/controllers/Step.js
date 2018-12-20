@@ -82,7 +82,7 @@ module.exports.catchsteps = function (sid,title,group,submid,adminmid,nextstep){
   console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
-      //console.log(returnValue);
+      console.log(returnValue);
       var steplist=[];
       for(var idx in returnValue){
         const json_step = returnValue[idx];

@@ -104,18 +104,28 @@ module.exports.catchmembers = function(mid,name,group,permission,nextstep,accoun
   for(var idx in pws){
     querytext+= "OR `pws`= '"+pws[idx]+"'";
   }
-  console.log(querytext);
+  //console.log(querytext);
 
   connection.query(querytext, function(returnValue) {
       //console.log(returnValue);
+      
+      
       var memberlist=[];
       for(var idx in returnValue){
-        const json_member = returnValue[idx];
-        const class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"],json_member["pws"],json_member["account"]);
-
+        console.log(idx);
+        var json_member = returnValue[idx];
+        console.log(json_member);
+        var class_member = new cd.member(json_member["mid"],json_member["name"],json_member["group"],json_member["permission"],json_member["hidden"],json_member["description"],json_member["pws"],json_member["account"]);
+        console.log(idx);
         memberlist.push(class_member);
       }
+      console.log(memberlist);
       nextstep(memberlist);
+      
+      
+  
+      
+      
   });
 }
 /* --------*/
@@ -137,7 +147,7 @@ module.exports.memberPOST = function memberPOST (req, res, next) {
       const newmember = new cd.member(mid,member["name"],member["group"],member["permission"],hidden,member["description"]);
       newmember.account = member["account"];
       newmember.pws = member["pws"];
-      //console.log(newmember);
+      console.log(newmember);
       creatamember(newmember,function(re){
         utils.writeJson(res, re);
       });
