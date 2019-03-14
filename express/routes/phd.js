@@ -110,13 +110,44 @@ router.get('/review/admin2/', function(req, res) {
     api.getsubmember(mid,function(submembers){
 
 
-        res.render('phd/review_admin',{"siteroot":app.siteroot,"submembers":submembers,"group":group});
+        res.render('phd/review_admin',{"siteroot":app.siteroot,"submembers":submembers,"group":group,"tag":tag});
     });
   }
   
   //res.send("error: "+tag);
 });
 
+router.get('/review/admin2/output', function(req, res) {
+  console.log("into page: /review/admin/output");
+
+  
+  var tag = req.param('tag', null);
+  
+  
+  if(!req.session.user || !req.session.user[tag]){
+    res.redirect(app.siteroot+'/phd/logout');
+  }else {
+    
+    //console.log(tag);
+    //console.log(req.session.user);
+    var mid = req.session.user[tag]['mid'];
+    var group = req.session.user[tag]['group'];
+    var permission = req.session.user[tag]['permission'];
+    if(permission!='admin'){
+      res.redirect(app.siteroot+'/phd/login');
+    }
+    
+    api.getsubmember(mid,function(submembers){
+
+        
+        res.render('phd/output',{"siteroot":app.siteroot,"submembers":submembers,"group":group});
+    });
+    
+  }
+  
+  
+ 
+});
 
 router.get('/review/user/', function(req, res) {
     var tag = req.param('tag', null);
@@ -320,5 +351,6 @@ router.post('/deleteStep', function(req, res) {
 
   });
 });
+
 
 module.exports = router;

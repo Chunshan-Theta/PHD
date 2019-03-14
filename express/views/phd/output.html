@@ -1,0 +1,70 @@
+<div id="main"></div>
+<script>
+	 	var djson = '<%=submembers%>';
+		djson = djson.replace(/&#34;/g,"\"");
+		djson = djson.replace(/&#39;/g,"\\\"");
+		djson = djson.replace(/\n/g,"");
+		console.log(djson);
+		const ms = JSON.parse(djson)['members'];
+		//document.getElementById("main").innerHTML=JSON.stringify(djson);
+		
+		for(var studentIdx in ms){
+			var aStudent = ms[studentIdx];
+			if(aStudent['hidden']==1){
+					continue;
+				}
+			for(var key in aStudent){
+				if(key=='description_str' || 
+					key == 'alert' ||
+					key == 'hidden'){
+					continue;
+				}
+				if(key=='description'){
+					
+						
+					var aStep = aStudent[key];
+					for(var stepKey in aStep){
+						if(stepKey=='submid' || 
+							stepKey=='adminmid'|| 
+							stepKey=='sid'){
+							continue;
+						}
+						document.getElementById("main").innerHTML+=key;
+						document.getElementById("main").innerHTML+=',';
+						document.getElementById("main").innerHTML+=stepKey;
+						document.getElementById("main").innerHTML+=',';
+						document.getElementById("main").innerHTML+=aStep[stepKey];
+						document.getElementById("main").innerHTML+='<br>';
+					}
+					
+				}
+				else if(key=='steps'){
+					for(var skey in aStudent[key]){
+						
+						var aStep = aStudent[key][skey];
+						for(var stepKey in aStep){
+							if(stepKey=='submid' || 
+								stepKey=='adminmid'|| 
+								stepKey=='sid'){
+								continue;
+							}
+							document.getElementById("main").innerHTML+=key;
+							document.getElementById("main").innerHTML+=',';
+							document.getElementById("main").innerHTML+=stepKey;
+							document.getElementById("main").innerHTML+=',';
+							document.getElementById("main").innerHTML+=aStep[stepKey];
+							document.getElementById("main").innerHTML+='<br>';
+						}
+					}
+				}
+				else{
+					document.getElementById("main").innerHTML+=key;
+					document.getElementById("main").innerHTML+=',';
+					document.getElementById("main").innerHTML+=aStudent[key];
+					document.getElementById("main").innerHTML+='<br>';
+				}
+			}
+			document.getElementById("main").innerHTML+='<br><br>';
+			document.getElementById("main").innerHTML+='-----------------<br>';
+		}
+</script>
