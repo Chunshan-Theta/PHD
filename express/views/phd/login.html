@@ -148,8 +148,8 @@
 
 				if($.cookie('UserTag')!='null'&&$.cookie('UserTag')!=null&&$.cookie('UserHome')!=null&&$.cookie('UserHome')!=null){
 					//$.cookie.raw = true;
-					console.log("$.cookie('UserTag'): ",$.cookie('UserTag'));
-					console.log("$.cookie('UserHome'): ",$.cookie('UserHome'));
+					//console.log("$.cookie('UserTag'): ",$.cookie('UserTag'));
+					//console.log("$.cookie('UserHome'): ",$.cookie('UserHome'));
 					window.location = $.cookie('UserHome');
 					//alert('<%=siteroot%>/phd/?tag='+$.cookie('UserTag'));
 				}
@@ -165,7 +165,7 @@
 				 var pws = $('#inputPassword').val();
 				 $('#submit').attr('disabled', true);
 				 $("#lodingimg").removeClass("d-none");
-
+				 /*
 				 $.post("./login",
 					 {
 						 "account":account,
@@ -187,8 +187,44 @@
 								 }
 								 $('#submit').attr('disabled', false);
 								 $("#lodingimg").addClass("d-none");
+								 setTimeout(function(){
+									    //do what you need here
+								 }, 20000);
 
 				  });
+				  */
+				   $.post("./login",
+					 {
+						 "account":account,
+						 "pws":pws
+
+					 })
+				   .done(function(data, status){
+						setTimeout(function(){
+							$('#submit').attr('disabled', false);
+							$("#lodingimg").addClass("d-none");
+							alert("error!!! try again!");
+						}, 20000);
+				  	})
+				   .success(function(data, status){
+				   		if(!data['tag'].includes('error')){
+							alert('success');
+							//alert(data['home']);
+							$.cookie('UserTag',data['tag'],{ expires: 1 ,path:'/'});
+							$.cookie('UserHome',data['home'],{ expires: 1 ,path:'/'});
+
+							window.location.replace(data['home']);
+						}else{
+							alert(data['tag']);
+
+						}
+						
+						$("#lodingimg").addClass("d-none");
+				   })
+				   .fail(function(data,status){
+				   		alert('bad network!!');
+
+				   });
 			}
 
 	</script>

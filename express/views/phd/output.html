@@ -44,10 +44,10 @@
 						var aStep = aStudent[key][skey];
 						for(var stepKey in aStep){
 							if(stepKey=='submid' || 
-								stepKey=='adminmid'|| 
-								stepKey=='sid'){
+								stepKey=='adminmid'){
 								continue;
 							}
+							document.getElementById("main").innerHTML+='-';
 							document.getElementById("main").innerHTML+=key;
 							document.getElementById("main").innerHTML+=',';
 							document.getElementById("main").innerHTML+=stepKey;
